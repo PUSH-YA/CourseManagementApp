@@ -4,7 +4,7 @@
 
 **Application functionality:**
 You add *Assignments* into a checklist of sort with date and the estimate time needed to complete the application.
-The application will shedule the tasks based on the date and the estimate time needed automatically and then show the
+The application will schedule the tasks based on the date and the estimate time needed automatically and then show the
 schedule that it created for you. This will help you focus on just doing the tasks rather than organising. Once the task
 is finished, simply click *"done"* on the checklist and it will remove the task from the schedule visualisation.
 
