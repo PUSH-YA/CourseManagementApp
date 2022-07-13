@@ -2,7 +2,7 @@
 
 ## automatically schedules your assignments helping you decrease your procrastination
 
-**Application functionality: **
+**Application functionality:**
 You add *Assignments* into a checklist of sort with date and the estimate time needed to complete the application.
 The application will shedule the tasks based on the date and the estimate time needed automatically and then show the
 schedule that it created for you. This will help you focus on just doing the tasks rather than organising. Once the task
@@ -19,7 +19,7 @@ summer courses right after a short vacation, I realised how easy it is for the p
 In such cases, I think having an organised schedule can ease the pressure of getting the tasks done and thus, I think that
 having a user friendly interface that automatically schedules tasks for you can be really helpful for everyone.
 
-**User story for my application: **
+**User story for my application:**
 - As a user, I want to add my upcoming assignment with dates and estimated time needed
 - As a user, I want to schedule my upcoming tasks automatically
 - As a user, I want to see my schedule for the tasks
