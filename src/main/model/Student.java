@@ -6,6 +6,8 @@ import model.exceptions.TooLongDuration;
 import java.time.LocalDate;
 import java.util.*;
 
+// Represents a student that can be enrolled in multiple courses and have a schedule for
+// their homeworks from multiple courses
 public class Student {
 
     private String name;

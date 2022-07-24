@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.Date;
 
+//represents a homework for a specific course that needs to be done and carries a % weight of the grade for the course
 public class HomeWork {
     private String name;
     private LocalDate startDate;

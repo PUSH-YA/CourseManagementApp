@@ -12,7 +12,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-
+// Console based ui for the course management system where 1 student can manage his courses by seeing
+// and managing their schedule
 public class CourseManagementSystem {
     private Student student;
     private Scanner scanner;

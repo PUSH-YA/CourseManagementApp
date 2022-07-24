@@ -5,6 +5,7 @@ import model.exceptions.AlreadyExists;
 import java.util.ArrayList;
 import java.util.List;
 
+//represents a course that the student might be enrolled in with its own homeworks to do and a grade
 public class Course {
 
     private List<HomeWork> homeworks;
