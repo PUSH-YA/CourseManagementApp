@@ -32,12 +32,12 @@ public class HomeWorkTest {
         assertEquals(hwk.getWeighing(), 30.0);
         assertEquals(hwk.getGrade(), 0);
         assertEquals(hwk.getDuration(), 3);
-        assertEquals(hwk.getDeadline(), localDate1);
+        assertEquals(hwk.getDate(), localDate1);
         assertEquals(hwk.getStatus(), "incomplete");
         assertEquals(hwk.getCourse(), "cpsc");
 
         assertEquals(hwk2.getName(), "hwk2");
-        assertEquals(hwk2.getDeadline(), localDate2);
+        assertEquals(hwk2.getDate(), localDate2);
     }
 
     @Test

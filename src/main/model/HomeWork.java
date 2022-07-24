@@ -23,32 +23,27 @@ public class HomeWork {
         done = false;
     }
 
-    //EFFECTS: returns the startDate
-    public LocalDate getDeadline() {
+    //Getters
+    public LocalDate getDate() {
         return startDate;
     }
 
-    //EFFECTS: returns the courseName of the workload
     public String getCourse() {
         return course;
     }
 
-    //EFFECTS: returns the name of the homework
     public String getName() {
         return name;
     }
 
-    //EFFECTS: returns the duration of the homework
     public int getDuration() {
         return duration;
     }
 
-    //EFFECTS: returns the current weighing of the homework
     public double getWeighing() {
         return weighing;
     }
 
-    //EFFECTS: returns the grade of the homework
     public double getGrade() {
         return grade;
     }
@@ -58,6 +53,7 @@ public class HomeWork {
     }
 
     //EFFECTS: returns the status of the homework as a string
+    //          true is "done" and false is "incomplete"
     public String getStatus() {
         if (done) {
             return "done";
@@ -66,6 +62,7 @@ public class HomeWork {
         }
     }
 
+    //MODIFIES: done
     //EFFECTS: change the status of the code from the previous state
     public void changeStatus() {
         done = !done;

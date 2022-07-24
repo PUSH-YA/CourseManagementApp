@@ -20,12 +20,13 @@ public class CourseManagementSystem {
     private boolean keepRunning;
 
     //EFFECTS: creates a course management app with a student name and then
-    //                  runs the program's functions options
+    //         runs the program's functions options
     public CourseManagementSystem() {
         keepRunning = true;
         runMain();
     }
 
+    //MODIFIES: student [name]
     //EFFECTS: inputs the name of the student given then displays the menu
     private void runMain() {
         System.out.println("Welcome to the Course management System, please enter your name: ");
@@ -36,7 +37,8 @@ public class CourseManagementSystem {
         displayMenu();
     }
 
-    //EFFECTS: displays the options avalaible to choose for the user and
+    //MODIFIES: scanner
+    //EFFECTS: displays the options available to choose for the user and
     //          takes the input and passes it to options
     private void displayMenu() {
         while (keepRunning) {
@@ -55,7 +57,7 @@ public class CourseManagementSystem {
         }
     }
 
-    //EFFECTS: Chooses the options and then passes to the corresponding method
+    //EFFECTS:   Chooses the options and then passes to the corresponding method
     //           Also for AlreadyExits courses or homeworks error displays the error
     //           quits the program for any other responses
     private void options(String optionChosen) {
@@ -84,7 +86,7 @@ public class CourseManagementSystem {
         }
     }
 
-    //MODIFES: student
+    //MODIFIES: student [listOfCourses]
     //EFFECTS: if !existsAlready adds the course with the name to the students
     //          else throws AlreadyExists error
     private void addCourseForStudent() throws AlreadyExists {
@@ -101,8 +103,8 @@ public class CourseManagementSystem {
     }
 
     //EFFECTS: gets the course through the getCourse method
-    //         if catches NullCourseException, TooLongDuration, AlreadyExists shows the corresponding message for it
-    //         sends the chosen course to the checkIfWorkAlreadyInCourse
+    //         if catches NullCourseException, TooLongDuration, AlreadyExists shows the corresponding message
+    //         sends the chosen course to the checkIfHomeWorkAlreadyInCourse
     private void addHomeWorkForStudent() throws AlreadyExists {
         System.out.println("you will have to add some details about the course");
         try {
@@ -154,7 +156,7 @@ public class CourseManagementSystem {
         HomeWork homeWork  = new HomeWork(name, localDate, courseChosen.getCourseName(), duration, weighing);
         try {
             courseChosen.addHomeWork(homeWork);
-            student.addToSchedule(homeWork);
+            student.addHomeWorkToSchedule(homeWork);
         } catch (TooLongDuration e) {
             throw new TooLongDuration();
         } catch (AlreadyExists e) {
@@ -217,7 +219,7 @@ public class CourseManagementSystem {
     //EFFECTS: takes the the course, and then takes the input of the homework
     //        goes through the list of homeworks in the courses of the student and
     //        then returns the course with the same name
-    //          if no homework is found, throws NullHomeWorkException
+    //        if no homework is found, throws NullHomeWorkException
     public HomeWork getHomeWork(Course course) throws NullHomeWorkException {
         System.out.println("which homework status do you want? [not case sensitive] ");
         HomeWork homeworkChosen = null;
@@ -256,7 +258,7 @@ public class CourseManagementSystem {
     //EFFECTS: gets the course and the homeworks and then changes the grade of that homeworks
     //          displays the message that grade of the homework is changed and then the current
     //          progress of the course
-    //          if catches NullCourseExceptions NullHomeWorkExceptions, shows the message
+    //          if catches NullCourseExceptions, NullHomeWorkExceptions, shows the message
     private void changeHomeWorkGrade() {
         try {
             Course course = getCourse();

@@ -107,7 +107,7 @@ public class CourseTest {
     @Test
     public void testCalculatingGradeWithNoHomeWorks() {
         double grade = 0;
-        assertEquals(course1.getGrade(), 0);
+        assertEquals(course1.getGrade(), grade);
     }
 
 

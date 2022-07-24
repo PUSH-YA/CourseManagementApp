@@ -19,13 +19,24 @@ public class Course {
         courseGrade = 0;
     }
 
-    //EFFECTS: returns the course name
+    //Getters
     public String getCourseName() {
         return courseName;
     }
 
+    public List<HomeWork> getHomeworks() {
+        return homeworks;
+    }
+
+    public double getGrade() {
+        calculateGrade();
+        return courseGrade;
+    }
+
     //MODIFIES: homeworks
-    //EFFECTS: adds 1 homework to the homeworks list
+    //EFFECTS: if homework does not exist already
+    //         adds 1 homework to the homeworks list
+    //         else throws AlreadyExists exception
     public void addHomeWork(HomeWork hwk) throws AlreadyExists {
         if (checkHwkList(hwk)) {
             homeworks.add(hwk);
@@ -34,13 +45,9 @@ public class Course {
         }
     }
 
-    //EFFECTS: return the homeworks list
-    public List<HomeWork> getHomeworks() {
-        return homeworks;
-    }
-
-    //MODIFIES: grade
-    //EFFECTS: calculates the weighted grades based on the homework
+    //MODIFIES: courseGrade
+    //EFFECTS: calculates the weighted grades based on the homework and changes the courseGrade accordingly
+    //          if there are no homeworks, returns 0
     private void calculateGrade() {
         double totalWeighing = 0;
         double grade = 0;
@@ -53,12 +60,6 @@ public class Course {
         } else {
             courseGrade = 0;
         }
-    }
-
-    //EFFECTS: returns the current grade for the course
-    public double getGrade() {
-        calculateGrade();
-        return courseGrade;
     }
 
     //EFFECTS: returns false if the homework with the same name already exists in the homework list, otherwise true

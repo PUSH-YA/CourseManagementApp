@@ -21,8 +21,19 @@ public class Student {
         schedule = new LinkedHashMap<LocalDate, List<HomeWork>>();
     }
 
+    //Getters
+    public List<Course> getListOfCourses() {
+        return listOfCourses;
+    }
+
+    public LinkedHashMap<LocalDate, List<HomeWork>> getSchedule() {
+        return schedule;
+    }
+
     //MODIFIES: listOfCourses
-    //EFFECTS: adds the course to the course list
+    //EFFECTS:  if the course with the same name does not exist then
+    //          adds the course to the course list
+    //          else throws AlreadyExists exception
     public void addCourse(Course course) throws AlreadyExists {
         if (checkCourseList(course)) {
             listOfCourses.add(course);
@@ -32,20 +43,15 @@ public class Student {
 
     }
 
-    //EFFECT: returns list of courses for the student
-    public List<Course> getListOfCourses() {
-        return listOfCourses;
-    }
-
     //EFFECTS:      Based on the listOfCourse:
-    //              For each start date, creates a list of assignments/hwks to do for the courses
-    //              if the total duration for a day passes 24 hours, cannot add it and returns false
+    //              Takes each homework for each course and then passes it to the addHomeWorkToSchedule
+    //              if the total duration for 1 date > 20 hours, cannot add it and throws tooLongDuration
     public void scheduleMaker() throws TooLongDuration {
         for (Course course : listOfCourses) {
             List<HomeWork> hwkList = course.getHomeworks();
             for (HomeWork hwk : hwkList) {
                 try {
-                    addToSchedule(hwk);
+                    addHomeWorkToSchedule(hwk);
                 } catch (TooLongDuration e) {
                     throw new TooLongDuration();
                 }
@@ -54,15 +60,18 @@ public class Student {
     }
 
 
+    //MODIFIES: schedule
     //EFFECTS: takes the input of the homework and adds it to the schedule
-    //          if the homework increases the duration > 20, throws TooLongDuration
-    public void addToSchedule(HomeWork hwk) throws TooLongDuration {
+    //         if the schedule has the deadline of the homework, adds it to that deadline
+    //         or creates a new deadline for the given homework
+    //         if the homework increases the duration > 20, throws TooLongDuration
+    public void addHomeWorkToSchedule(HomeWork hwk) throws TooLongDuration {
         Set<LocalDate> dates = schedule.keySet();
-        if (dates.contains(hwk.getDeadline())) {
-            List<HomeWork> homeworks = schedule.get(hwk.getDeadline());
+        if (dates.contains(hwk.getDate())) {
+            List<HomeWork> homeworks = schedule.get(hwk.getDate());
             try {
                 homeworks.add(hwk);
-                schedule.put(hwk.getDeadline(), homeworks);
+                schedule.put(hwk.getDate(), homeworks);
                 isItTooLong(homeworks);
             } catch (TooLongDuration e) {
                 throw new TooLongDuration();
@@ -70,13 +79,14 @@ public class Student {
         } else {
             List<HomeWork> homeworks = new ArrayList<>();
             homeworks.add(hwk);
-            schedule.put(hwk.getDeadline(), homeworks);
+            schedule.put(hwk.getDate(), homeworks);
         }
 
     }
 
-    //MODIFIES: schedule
-    //EFFECTS: throws TooLongDurationError if the homework list has more than 20 hours of work
+
+    //EFFECTS:      calculates the total duration of the homeworks in the list
+    //             if total duration > 20 hours, throws TooLongDurationError exception
     private void isItTooLong(List<HomeWork> homeworks) throws TooLongDuration {
         int total = 0;
         for (HomeWork hwk : homeworks) {
@@ -87,12 +97,8 @@ public class Student {
         }
     }
 
-    //EFFECTS: returns the schedule
-    public LinkedHashMap<LocalDate, List<HomeWork>> getSchedule() {
-        return schedule;
-    }
-
-    //EFFECTS: returns false if the student is already registered in the course otherwise true
+    //EFFECTS: returns false if the student is already registered in the
+    //         course with the same name otherwise true
     public boolean checkCourseList(Course c) {
         String courseName = c.getCourseName().toLowerCase();
         for (Course course :  listOfCourses) {
