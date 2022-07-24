@@ -9,8 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CourseTest {
 
@@ -19,7 +18,6 @@ public class CourseTest {
     HomeWork hwk1;
     HomeWork hwk2;
     HomeWork hwk3;
-
 
     @BeforeEach
     public void setup(){
@@ -42,9 +40,8 @@ public class CourseTest {
         hwk3 = new HomeWork("hwk3", localDate3 , "cpsc", 2, 49.0);
     }
 
-
     @Test
-    public void testGettters(){
+    public void testGetters(){
         // Course name
         assertEquals(course1.getCourseName(), "cpsc");
         assertEquals(course2.getCourseName(), "english");
@@ -90,6 +87,45 @@ public class CourseTest {
         } catch(AlreadyExists e) {
 
         }
+    }
+
+    @Test
+    public void checkHwkListFailWith1Item(){
+        try{
+            course1.addHomeWork(hwk1);
+            assertFalse(course1.checkHwkList(hwk2));
+
+        } catch(AlreadyExists e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void checkHwkListFailWith2Items(){
+        try{
+            course1.addHomeWork(hwk1);
+            course1.addHomeWork(hwk3);
+            assertFalse(course1.checkHwkList(hwk2));
+
+        } catch(AlreadyExists e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void checkHwkListPassWith1Item(){
+        try{
+            course1.addHomeWork(hwk1);
+            assertFalse(course1.checkHwkList(hwk3));
+
+        } catch(AlreadyExists e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void checkHwkListPassWithNoITems(){
+        assertTrue(course1.checkHwkList(hwk3));
     }
 
 }
