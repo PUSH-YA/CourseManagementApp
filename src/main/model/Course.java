@@ -44,11 +44,15 @@ public class Course {
     private void calculateGrade() {
         double totalWeighing = 0;
         double grade = 0;
-        for (HomeWork hwk : homeworks) {
-            totalWeighing += hwk.getWeighing();
-            grade += (hwk.getGrade() * hwk.getWeighing());
+        if (!homeworks.isEmpty()) {
+            for (HomeWork hwk : homeworks) {
+                totalWeighing += hwk.getWeighing();
+                grade += (hwk.getGrade() * hwk.getWeighing());
+            }
+            courseGrade = grade / totalWeighing;
+        } else {
+            courseGrade = 0;
         }
-        courseGrade = grade / totalWeighing;
     }
 
     //EFFECTS: returns the current grade for the course

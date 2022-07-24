@@ -53,6 +53,8 @@ public class CourseTest {
         } catch (AlreadyExists e) {
             fail();
         }
+
+        //getHomeWorks
         List<HomeWork> hwkList = new ArrayList<>();
         hwkList.add(hwk1);
         hwkList.add(hwk3);
@@ -90,6 +92,26 @@ public class CourseTest {
     }
 
     @Test
+    public void testCalculatingGradeWith0() {
+        try {
+            course1.addHomeWork(hwk1);
+            course1.addHomeWork(hwk3);
+
+            double grade = 0;
+            assertEquals(course1.getGrade(), grade);
+        } catch(AlreadyExists e) {
+
+        }
+    }
+
+    @Test
+    public void testCalculatingGradeWithNoHomeWorks() {
+        double grade = 0;
+        assertEquals(course1.getGrade(), 0);
+    }
+
+
+    @Test
     public void checkHwkListFailWith1Item(){
         try{
             course1.addHomeWork(hwk1);
@@ -116,7 +138,7 @@ public class CourseTest {
     public void checkHwkListPassWith1Item(){
         try{
             course1.addHomeWork(hwk1);
-            assertFalse(course1.checkHwkList(hwk3));
+            assertTrue(course1.checkHwkList(hwk3));
 
         } catch(AlreadyExists e) {
             fail();
