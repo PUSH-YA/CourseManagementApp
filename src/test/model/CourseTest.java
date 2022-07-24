@@ -112,7 +112,7 @@ public class CourseTest {
 
 
     @Test
-    public void checkHwkListFailWith1Item(){
+    public void testingCheckHwkListFailWith1Item(){
         try{
             course1.addHomeWork(hwk1);
             assertFalse(course1.checkHwkList(hwk2));
@@ -123,7 +123,7 @@ public class CourseTest {
     }
 
     @Test
-    public void checkHwkListFailWith2Items(){
+    public void testingCheckHwkListFailWith2Items(){
         try{
             course1.addHomeWork(hwk1);
             course1.addHomeWork(hwk3);
@@ -135,7 +135,7 @@ public class CourseTest {
     }
 
     @Test
-    public void checkHwkListPassWith1Item(){
+    public void testingCheckHwkListPassWith1Item(){
         try{
             course1.addHomeWork(hwk1);
             assertTrue(course1.checkHwkList(hwk3));
@@ -146,7 +146,7 @@ public class CourseTest {
     }
 
     @Test
-    public void checkHwkListPassWithNoITems(){
+    public void testingCheckHwkListPassWithNoITems(){
         assertTrue(course1.checkHwkList(hwk3));
     }
 

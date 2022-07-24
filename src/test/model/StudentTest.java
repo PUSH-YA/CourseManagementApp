@@ -34,13 +34,11 @@ public class StudentTest {
         hwk1 = new HomeWork("hwk1", localDate1 , "cpsc", 3, 25);
 
         String hwk2Date = "24/03/2003";
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate localDate2 = LocalDate.parse(hwk2Date, formatter2);
+        LocalDate localDate2 = LocalDate.parse(hwk2Date, formatter1);
         hwk2 = new HomeWork("hwk2", localDate2 , "english", 4, 50);
 
         String hwk3Date = "25/03/2003";
-        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate localDate3 = LocalDate.parse(hwk3Date, formatter3);
+        LocalDate localDate3 = LocalDate.parse(hwk3Date, formatter1);
         hwk3 = new HomeWork("hwk3", localDate3 , "english", 4, 50);
     }
 
@@ -60,7 +58,7 @@ public class StudentTest {
     }
 
     @Test
-    public void testingGettersToGet100Coverage(){
+    public void testingGetters(){
         try{
             course1.addHomeWork(hwk1);
             course2.addHomeWork(hwk2);
@@ -89,6 +87,10 @@ public class StudentTest {
     public void testingAddingCoursesToStudent(){
         try{
             student.addCourse(course1);
+            student.addCourse(course2);
+            assertTrue(student.getListOfCourses().contains(course1));
+            assertTrue(student.getListOfCourses().contains(course2));
+
         } catch (AlreadyExists e) {
             fail();
         }
@@ -104,6 +106,8 @@ public class StudentTest {
         } catch (AlreadyExists e) {
 
         }
+        assertEquals(student.getListOfCourses().size(), 1);
+        assertEquals(student.getListOfCourses().get(0), course1);
     }
 
     @Test
@@ -118,6 +122,7 @@ public class StudentTest {
             LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
             assertEquals(schedule.size(),1);
             assertEquals(schedule.get(hwk1.getDeadline()).size(), 1);
+            assertEquals(schedule.get(hwk1.getDeadline()).get(0), hwk1);
 
         }
         catch (TooLongDuration e) {
@@ -141,7 +146,9 @@ public class StudentTest {
             LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
             assertEquals(schedule.size(),2);
             assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
-
+            assertTrue(schedule.get(hwk1.getDeadline()).contains(hwk1));
+            assertTrue(schedule.get(hwk2.getDeadline()).contains(hwk2));
+            assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
         }
         catch (TooLongDuration e) {
             fail();
@@ -156,6 +163,8 @@ public class StudentTest {
         Course failure = new Course(course2.getCourseName());
 
         try {
+            failure.addHomeWork(hwk1);
+
             course1.addHomeWork(hwk1);
             course2.addHomeWork(hwk2);
             course2.addHomeWork(hwk3);
@@ -168,7 +177,9 @@ public class StudentTest {
             LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
             assertEquals(schedule.size(),2);
             assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
-            displaySchedule();
+            assertTrue(schedule.get(hwk2.getDeadline()).contains(hwk2));
+            assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
+
         }
         catch (TooLongDuration e) {
             fail();
@@ -198,6 +209,58 @@ public class StudentTest {
         catch (TooLongDuration e) {
 
         }
+    }
+
+    @Test
+    public void testingCheckCourseListFailWith1Item(){
+        try{
+            student.addCourse(course1);
+            assertFalse(student.checkCourseList(course1));
+
+        } catch(AlreadyExists e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testingCheckCourseListFailWith2Items(){
+        try{
+            student.addCourse(course1);
+            student.addCourse(course2);
+            assertFalse(student.checkCourseList(course2));
+
+        } catch(AlreadyExists e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testingCheckCourseListPassWith2Items(){
+        try{
+            Course course3 = new Course("trial");
+            student.addCourse(course1);
+            student.addCourse(course2);
+            assertTrue(student.checkCourseList(course3));
+
+        } catch(AlreadyExists e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testingCheckCourseListPassWith1Item(){
+        try{
+            student.addCourse(course1);
+            assertTrue(student.checkCourseList(course2));
+
+        } catch(AlreadyExists e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testingCheckCourseListPassWithNoItems(){
+        assertTrue(student.checkCourseList(course1));
     }
 
 
