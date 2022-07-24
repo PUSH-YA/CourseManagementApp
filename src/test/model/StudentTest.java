@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
     Student student;
+    Student another;
     Course course1;
     Course course2;
     HomeWork hwk1;
@@ -26,6 +27,7 @@ public class StudentTest {
     @BeforeEach
     public void setup(){
         student = new Student("Jeff");
+        another = new Student("no one cares about");
         course1 = new Course("cpsc");
         course2 = new Course("english");
 
@@ -93,9 +95,13 @@ public class StudentTest {
         try{
             student.addCourse(course1);
             student.addCourse(course2);
+            assertEquals(student.getListOfCourses().size(), 2);
             assertTrue(student.getListOfCourses().contains(course1));
             assertTrue(student.getListOfCourses().contains(course2));
 
+            assertEquals(another.getListOfCourses().size(), 0);
+            assertFalse(another.getListOfCourses().contains(course1));
+            assertFalse(another.getListOfCourses().contains(course2));
         } catch (AlreadyExists e) {
             fail();
         }
@@ -103,16 +109,23 @@ public class StudentTest {
 
     @Test
     public void testingAddingSameCourseName(){
+        Course courseNew = new Course(course1.getCourseName());
         try{
+            //control test
+            another.addCourse(courseNew);
             student.addCourse(course1);
-            Course courseNew = new Course(course1.getCourseName());
             student.addCourse(courseNew);
             fail();
+
         } catch (AlreadyExists e) {
 
         }
         assertEquals(student.getListOfCourses().size(), 1);
         assertEquals(student.getListOfCourses().get(0), course1);
+
+        assertEquals(another.getListOfCourses().size(), 1);
+        assertTrue(another.getListOfCourses().contains(courseNew));
+        assertFalse(another.getListOfCourses().contains(course1));
     }
 
     @Test
@@ -123,11 +136,19 @@ public class StudentTest {
             student.addCourse(course1);
             student.scheduleMaker();
 
+            course2.addHomeWork(hwk2);
+            another.addCourse(course2);
+            another.scheduleMaker();
 
             LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
             assertEquals(schedule.size(),1);
             assertEquals(schedule.get(hwk1.getDeadline()).size(), 1);
             assertEquals(schedule.get(hwk1.getDeadline()).get(0), hwk1);
+
+            LinkedHashMap<LocalDate, List<HomeWork>> scheduleAnother = another.getSchedule();
+            assertEquals(scheduleAnother.size(),1);
+            assertEquals(scheduleAnother.get(hwk2.getDeadline()).size(), 1);
+            assertEquals(scheduleAnother.get(hwk2.getDeadline()).get(0), hwk2);
 
         }
         catch (TooLongDuration e) {
@@ -152,6 +173,8 @@ public class StudentTest {
             assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
             assertTrue(schedule.get(hwk1.getDeadline()).contains(hwk1));
             assertTrue(schedule.get(hwk2.getDeadline()).contains(hwk2));
+            assertFalse(schedule.get(hwk3.getDeadline()).contains(hwk1));
+            assertFalse(schedule.get(hwk3.getDeadline()).contains(hwk2));
             assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
         }
         catch (TooLongDuration e) {
@@ -169,21 +192,21 @@ public class StudentTest {
             course2.addHomeWork(hwk3);
             student.addCourse(course1);
             student.addCourse(course2);
+            student.scheduleMaker();
+
+            another.addCourse(course1);
+            another.addCourse(course2);
+            another.scheduleMaker();
 
             String hwk1Date = "24/03/2003";
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy");
             LocalDate localDate1 = LocalDate.parse(hwk1Date, formatter1);
             HomeWork hwkTemp = new HomeWork("hwk1", localDate1 , "cpsc", 3, 25);
             course1.addHomeWork(hwkTemp);
+            student.scheduleMaker();
             fail();
 
-            student.scheduleMaker();
-            LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
-            assertEquals(schedule.size(),2);
-            assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
-            assertTrue(schedule.get(hwk1.getDeadline()).contains(hwk1));
-            assertTrue(schedule.get(hwk2.getDeadline()).contains(hwk2));
-            assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
+
         }
         catch (TooLongDuration e) {
             fail();
@@ -191,14 +214,80 @@ public class StudentTest {
 
         }
 
+        LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
+        assertEquals(schedule.size(),2);
+        assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
+        assertTrue(schedule.get(hwk1.getDeadline()).contains(hwk1));
+        assertTrue(schedule.get(hwk2.getDeadline()).contains(hwk2));
+        assertFalse(schedule.get(hwk3.getDeadline()).contains(hwk1));
+        assertFalse(schedule.get(hwk3.getDeadline()).contains(hwk2));
+        assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
+
+        LinkedHashMap<LocalDate, List<HomeWork>> scheduleAnother = another.getSchedule();
+        assertEquals(scheduleAnother.size(),2);
+        assertEquals(scheduleAnother.get(hwk1.getDeadline()).size(), 2);
+        assertTrue(scheduleAnother.get(hwk1.getDeadline()).contains(hwk1));
+        assertTrue(scheduleAnother.get(hwk2.getDeadline()).contains(hwk2));
+        assertFalse(scheduleAnother.get(hwk3.getDeadline()).contains(hwk1));
+        assertFalse(scheduleAnother.get(hwk3.getDeadline()).contains(hwk2));
+        assertTrue(scheduleAnother.get(hwk3.getDeadline()).contains(hwk3));
+
+
+
     }
 
     @Test
-    public void testingMakingScheduleWithSameCourseName(){
+    public void testingMakingScheduleWithSameCourseNameButScheduleMakerCalledFirst(){
         Course failure = new Course(course2.getCourseName());
 
         try {
             failure.addHomeWork(hwk1);
+
+            another.addCourse(failure);
+            another.scheduleMaker();
+
+            course1.addHomeWork(hwk1);
+            course2.addHomeWork(hwk2);
+            course2.addHomeWork(hwk3);
+            student.addCourse(course1);
+            student.addCourse(course2);
+            student.scheduleMaker();
+            student.addCourse(failure);
+            student.scheduleMaker();
+            fail();
+
+        }
+        catch (TooLongDuration e) {
+            fail();
+        } catch (AlreadyExists e) {
+
+        }
+
+        LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
+        assertEquals(schedule.size(),2);
+        assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
+        assertTrue(schedule.get(hwk1.getDeadline()).contains(hwk2));
+        assertFalse(schedule.get(hwk1.getDeadline()).contains(hwk3));
+        assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
+
+
+        LinkedHashMap<LocalDate, List<HomeWork>> scheduleAnother = another.getSchedule();
+        assertEquals(scheduleAnother.size(),1);
+        assertEquals(scheduleAnother.get(hwk1.getDeadline()).size(), 1);
+        assertTrue(scheduleAnother.get(hwk1.getDeadline()).contains(hwk1));
+        assertFalse(scheduleAnother.get(hwk1.getDeadline()).contains(hwk3));
+    }
+
+
+    @Test
+    public void testingMakingScheduleWithSameCourseNameButScheduleMakerCalledAfter(){
+        Course failure = new Course(course2.getCourseName());
+
+        try {
+            failure.addHomeWork(hwk1);
+
+            another.addCourse(failure);
+            another.scheduleMaker();
 
             course1.addHomeWork(hwk1);
             course2.addHomeWork(hwk2);
@@ -206,14 +295,8 @@ public class StudentTest {
             student.addCourse(course1);
             student.addCourse(course2);
             student.addCourse(failure);
-            fail();
-
             student.scheduleMaker();
-            LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
-            assertEquals(schedule.size(),2);
-            assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
-            assertTrue(schedule.get(hwk2.getDeadline()).contains(hwk2));
-            assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
+            fail();
 
         }
         catch (TooLongDuration e) {
@@ -221,6 +304,15 @@ public class StudentTest {
         } catch (AlreadyExists e) {
 
         }
+
+        LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
+        assertEquals(schedule.size(),0);
+
+        LinkedHashMap<LocalDate, List<HomeWork>> scheduleAnother = another.getSchedule();
+        assertEquals(scheduleAnother.size(),1);
+        assertEquals(scheduleAnother.get(hwk1.getDeadline()).size(), 1);
+        assertTrue(scheduleAnother.get(hwk1.getDeadline()).contains(hwk1));
+        assertFalse(scheduleAnother.get(hwk1.getDeadline()).contains(hwk3));
     }
 
     @Test
@@ -294,6 +386,10 @@ public class StudentTest {
             student.addCourse(course1);
             student.addCourse(course2);
             assertFalse(student.checkCourseList(course2));
+
+            //confirming if it still works
+            Course temp = new Course("temp");
+            assertTrue(student.checkCourseList(temp));
 
         } catch(AlreadyExists e) {
             fail();
