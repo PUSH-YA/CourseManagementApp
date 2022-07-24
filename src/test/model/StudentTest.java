@@ -21,6 +21,7 @@ public class StudentTest {
     HomeWork hwk1;
     HomeWork hwk2;
     HomeWork hwk3;
+    HomeWork hwk4;
 
     @BeforeEach
     public void setup(){
@@ -40,6 +41,10 @@ public class StudentTest {
         String hwk3Date = "25/03/2003";
         LocalDate localDate3 = LocalDate.parse(hwk3Date, formatter1);
         hwk3 = new HomeWork("hwk3", localDate3 , "english", 4, 50);
+
+        String hwk4Date = "25/03/2003";
+        LocalDate localDate4 = LocalDate.parse(hwk4Date, formatter1);
+        hwk4 = new HomeWork("hwk4", localDate4 , "english", 17, 50);
     }
 
     //Helper to visualise the schedule
@@ -141,7 +146,6 @@ public class StudentTest {
             student.addCourse(course1);
             student.addCourse(course2);
 
-
             student.scheduleMaker();
             LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
             assertEquals(schedule.size(),2);
@@ -157,6 +161,37 @@ public class StudentTest {
         }
     }
 
+    @Test
+    public void testingSameNameHomeWorkScheduleConflict(){
+        try {
+            course1.addHomeWork(hwk1);
+            course2.addHomeWork(hwk2);
+            course2.addHomeWork(hwk3);
+            student.addCourse(course1);
+            student.addCourse(course2);
+
+            String hwk1Date = "24/03/2003";
+            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            LocalDate localDate1 = LocalDate.parse(hwk1Date, formatter1);
+            HomeWork hwkTemp = new HomeWork("hwk1", localDate1 , "cpsc", 3, 25);
+            course1.addHomeWork(hwkTemp);
+            fail();
+
+            student.scheduleMaker();
+            LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
+            assertEquals(schedule.size(),2);
+            assertEquals(schedule.get(hwk1.getDeadline()).size(), 2);
+            assertTrue(schedule.get(hwk1.getDeadline()).contains(hwk1));
+            assertTrue(schedule.get(hwk2.getDeadline()).contains(hwk2));
+            assertTrue(schedule.get(hwk3.getDeadline()).contains(hwk3));
+        }
+        catch (TooLongDuration e) {
+            fail();
+        } catch (AlreadyExists e) {
+
+        }
+
+    }
 
     @Test
     public void testingMakingScheduleWithSameCourseName(){
@@ -190,11 +225,6 @@ public class StudentTest {
 
     @Test
     public void testingScheduleWithDurationConflict(){
-        //long homework
-        String hwk4Date = "25/03/2003";
-        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate localDate4 = LocalDate.parse(hwk4Date, formatter4);
-        HomeWork hwk4 = new HomeWork("hwk4", localDate4 , "english", 17, 50);
 
         try {
             course2.addHomeWork(hwk3);
@@ -207,6 +237,42 @@ public class StudentTest {
             fail();
         }
         catch (TooLongDuration e) {
+
+        }
+    }
+
+    @Test
+    public void testingTooLongDurationFirstAndAlreadyExistsSecond(){
+        try {
+            course2.addHomeWork(hwk3);
+            course2.addHomeWork(hwk4);
+            student.addCourse(course2);
+            student.scheduleMaker();
+            fail();
+            Course c1 = new Course(course1.getCourseName());
+            student.addCourse(c1);
+        } catch (TooLongDuration e) {
+
+        } catch (AlreadyExists e) {
+
+        }
+    }
+
+    @Test
+    public void testingAlreadyExistsFirstAndTooLongDurationSecond(){
+        try {
+            course2.addHomeWork(hwk3);
+            course2.addHomeWork(hwk4);
+            student.addCourse(course2);
+
+            Course c1 = new Course(course2.getCourseName());
+            student.addCourse(c1);
+            fail();
+            student.scheduleMaker();
+
+        } catch (AlreadyExists e) {
+
+        } catch (TooLongDuration e) {
 
         }
     }
