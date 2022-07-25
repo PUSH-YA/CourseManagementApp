@@ -1,6 +1,7 @@
 package model;
 
 import model.exceptions.AlreadyExists;
+import model.exceptions.NullHomeWorkException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,10 @@ public class Course {
     //EFFECTS: if homework does not exist already
     //         adds 1 homework to the homeworks list
     //         else throws AlreadyExists exception
-    public void addHomeWork(HomeWork hwk) throws AlreadyExists {
-        if (checkHwkList(hwk)) {
+    public void addHomeWork(HomeWork hwk) throws AlreadyExists, NullHomeWorkException {
+        if (hwk == null) {
+            throw new NullHomeWorkException();
+        } else if (checkHwkList(hwk)) {
             homeworks.add(hwk);
         } else {
             throw new AlreadyExists();

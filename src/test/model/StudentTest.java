@@ -1,6 +1,8 @@
 package model;
 
 import model.exceptions.AlreadyExists;
+import model.exceptions.NullCourseException;
+import model.exceptions.NullHomeWorkException;
 import model.exceptions.TooLongDuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -87,9 +89,24 @@ public class StudentTest {
 
         }  catch (AlreadyExists e) {
             fail();
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
     }
 
+    @Test
+    public void testNullCourseExceptions(){
+        try{
+            student.addCourse(null);
+        } catch (AlreadyExists e) {
+            fail();
+        } catch (NullCourseException e){
+
+        }
+
+    }
     @Test
     public void testingAddingCoursesToStudent(){
         try{
@@ -103,6 +120,8 @@ public class StudentTest {
             assertFalse(another.getListOfCourses().contains(course1));
             assertFalse(another.getListOfCourses().contains(course2));
         } catch (AlreadyExists e) {
+            fail();
+        }  catch (NullCourseException e) {
             fail();
         }
     }
@@ -119,6 +138,8 @@ public class StudentTest {
 
         } catch (AlreadyExists e) {
 
+        }  catch (NullCourseException e) {
+            fail();
         }
         assertEquals(student.getListOfCourses().size(), 1);
         assertEquals(student.getListOfCourses().get(0), course1);
@@ -155,6 +176,10 @@ public class StudentTest {
             fail();
         } catch(AlreadyExists e){
             fail();
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
     }
 
@@ -180,6 +205,10 @@ public class StudentTest {
         catch (TooLongDuration e) {
             fail();
         } catch (AlreadyExists e) {
+            fail();
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
             fail();
         }
     }
@@ -212,6 +241,10 @@ public class StudentTest {
             fail();
         } catch (AlreadyExists e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
 
         LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
@@ -231,8 +264,6 @@ public class StudentTest {
         assertFalse(scheduleAnother.get(hwk3.getDate()).contains(hwk1));
         assertFalse(scheduleAnother.get(hwk3.getDate()).contains(hwk2));
         assertTrue(scheduleAnother.get(hwk3.getDate()).contains(hwk3));
-
-
 
     }
 
@@ -261,6 +292,10 @@ public class StudentTest {
             fail();
         } catch (AlreadyExists e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
 
         LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
@@ -303,6 +338,10 @@ public class StudentTest {
             fail();
         } catch (AlreadyExists e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
 
         LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
@@ -330,6 +369,10 @@ public class StudentTest {
         }
         catch (TooLongDuration e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
     }
 
@@ -347,6 +390,10 @@ public class StudentTest {
 
         } catch (AlreadyExists e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
     }
 
@@ -366,6 +413,10 @@ public class StudentTest {
 
         } catch (TooLongDuration e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
+        } catch (NullCourseException e) {
+            fail();
         }
     }
 
@@ -376,6 +427,8 @@ public class StudentTest {
             assertFalse(student.checkCourseList(course1));
 
         } catch(AlreadyExists e) {
+            fail();
+        }  catch (NullCourseException e) {
             fail();
         }
     }
@@ -393,6 +446,8 @@ public class StudentTest {
 
         } catch(AlreadyExists e) {
             fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
     }
 
@@ -406,6 +461,8 @@ public class StudentTest {
 
         } catch(AlreadyExists e) {
             fail();
+        }  catch (NullCourseException e) {
+            fail();
         }
     }
 
@@ -416,6 +473,8 @@ public class StudentTest {
             assertTrue(student.checkCourseList(course2));
 
         } catch(AlreadyExists e) {
+            fail();
+        }  catch (NullCourseException e) {
             fail();
         }
     }

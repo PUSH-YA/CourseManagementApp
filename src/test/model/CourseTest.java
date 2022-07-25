@@ -1,6 +1,7 @@
 package model;
 
 import model.exceptions.AlreadyExists;
+import model.exceptions.NullHomeWorkException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +53,8 @@ public class CourseTest {
             course1.addHomeWork(hwk3);
         } catch (AlreadyExists e) {
             fail();
+        } catch (NullHomeWorkException e) {
+            fail();
         }
 
         //getHomeWorks
@@ -65,6 +68,19 @@ public class CourseTest {
     }
 
     @Test
+    public void testNullHomeWorkException(){
+        try {
+            course1.addHomeWork(null);
+            fail();
+        } catch(AlreadyExists e) {
+
+        } catch(NullHomeWorkException e){
+
+        }
+    }
+
+
+    @Test
     public void testSameNameHomeWork(){
         try {
             course1.addHomeWork(hwk1);
@@ -72,6 +88,8 @@ public class CourseTest {
             fail();
         } catch(AlreadyExists e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
         }
     }
 
@@ -88,6 +106,8 @@ public class CourseTest {
             assertEquals(course1.getGrade(), grade);
         } catch(AlreadyExists e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
         }
     }
 
@@ -101,6 +121,8 @@ public class CourseTest {
             assertEquals(course1.getGrade(), grade);
         } catch(AlreadyExists e) {
 
+        } catch (NullHomeWorkException e) {
+            fail();
         }
     }
 
@@ -119,6 +141,8 @@ public class CourseTest {
 
         } catch(AlreadyExists e) {
             fail();
+        } catch (NullHomeWorkException e) {
+            fail();
         }
     }
 
@@ -131,6 +155,8 @@ public class CourseTest {
 
         } catch(AlreadyExists e) {
             fail();
+        } catch (NullHomeWorkException e) {
+            fail();
         }
     }
 
@@ -141,6 +167,8 @@ public class CourseTest {
             assertTrue(course1.checkHwkList(hwk3));
 
         } catch(AlreadyExists e) {
+            fail();
+        } catch (NullHomeWorkException e) {
             fail();
         }
     }

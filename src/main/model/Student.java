@@ -1,6 +1,7 @@
 package model;
 
 import model.exceptions.AlreadyExists;
+import model.exceptions.NullCourseException;
 import model.exceptions.TooLongDuration;
 
 import java.time.LocalDate;
@@ -34,7 +35,10 @@ public class Student {
     //EFFECTS:  if the course with the same name does not exist then
     //          adds the course to the course list
     //          else throws AlreadyExists exception
-    public void addCourse(Course course) throws AlreadyExists {
+    public void addCourse(Course course) throws AlreadyExists, NullCourseException {
+        if (course == null) {
+            throw new NullCourseException();
+        }
         if (checkCourseList(course)) {
             listOfCourses.add(course);
         } else {

@@ -57,6 +57,7 @@ public class CourseManagementSystem {
         }
     }
 
+    @SuppressWarnings("methodLength")
     //EFFECTS:   Chooses the options and then passes to the corresponding method
     //           Also for AlreadyExits courses or homeworks error displays the error
     //           quits the program for any other responses
@@ -66,6 +67,8 @@ public class CourseManagementSystem {
                 addCourseForStudent();
             } catch (AlreadyExists e) {
                 System.out.println("This already exists");
+            }  catch (NullCourseException e) {
+                System.out.println("An error occured while adding the course, I am sorry :( ...  try again?");
             }
         } else if (optionChosen.equals("h")) {
             try {
@@ -89,7 +92,7 @@ public class CourseManagementSystem {
     //MODIFIES: student [listOfCourses]
     //EFFECTS: if !existsAlready adds the course with the name to the students
     //          else throws AlreadyExists error
-    private void addCourseForStudent() throws AlreadyExists {
+    private void addCourseForStudent() throws AlreadyExists, NullCourseException {
         System.out.println("add the name of the course [not case sensitive] ");
         String name = scanner.nextLine();
         name = name.toLowerCase();
@@ -98,6 +101,8 @@ public class CourseManagementSystem {
             student.addCourse(course);
         } catch (AlreadyExists e) {
             throw new AlreadyExists();
+        }  catch (NullCourseException e) {
+            throw new NullCourseException();
         }
 
     }
@@ -116,12 +121,15 @@ public class CourseManagementSystem {
             System.out.println("You should not have more than 20 hours of work in 1 day, split your work :)");
         } catch (AlreadyExists e) {
             throw new AlreadyExists();
+        } catch (NullHomeWorkException e) {
+            System.out.println("HomeWork not added properly, I am sorry :(...try again?");
         }
     }
 
     //EFFECTS: gets the name of the homeworks and passes the course and
     //          the name of the homework to the addHomeWorkInSchedule
-    private void checkIfHomeWorkalreadyInCourse(Course courseChosen) throws TooLongDuration, AlreadyExists {
+    private void checkIfHomeWorkalreadyInCourse(Course courseChosen)
+            throws TooLongDuration, AlreadyExists, NullHomeWorkException {
         System.out.println("Name of the homework? [not case sensitive] ");
         String name = scanner.nextLine();
 
@@ -131,6 +139,8 @@ public class CourseManagementSystem {
         } catch (TooLongDuration e) {
             throw new TooLongDuration();
 
+        } catch (NullHomeWorkException e) {
+            throw new NullHomeWorkException();
         }
 
     }
@@ -140,7 +150,8 @@ public class CourseManagementSystem {
     //          date, duration and weighing of the homework and then creates the homework
     //          if (!catches any exception), adds the homework to the given course
     //          if catches AlreadyExists or TooLongDuration, throws it
-    private void addHomeWorkInSchedule(Course courseChosen, String name) throws TooLongDuration, AlreadyExists {
+    private void addHomeWorkInSchedule(Course courseChosen, String name)
+            throws TooLongDuration, AlreadyExists, NullHomeWorkException {
         System.out.println("add the following details for the code"
                 + "\n" + "startDate = d/mm/yyyy");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -161,7 +172,8 @@ public class CourseManagementSystem {
             throw new TooLongDuration();
         } catch (AlreadyExists e) {
             throw new AlreadyExists();
-
+        } catch (NullHomeWorkException e) {
+            throw new NullHomeWorkException();
         }
     }
 
