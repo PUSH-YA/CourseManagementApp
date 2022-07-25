@@ -57,25 +57,15 @@ public class CourseManagementSystem {
         }
     }
 
-    @SuppressWarnings("methodLength")
+
     //EFFECTS:   Chooses the options and then passes to the corresponding method
     //           Also for AlreadyExits courses or homeworks error displays the error
     //           quits the program for any other responses
     private void options(String optionChosen) {
         if (optionChosen.equals("c")) {
-            try {
-                addCourseForStudent();
-            } catch (AlreadyExists e) {
-                System.out.println("This already exists");
-            }  catch (NullCourseException e) {
-                System.out.println("An error occured while adding the course, I am sorry :( ...  try again?");
-            }
+            addCourseForStudent();
         } else if (optionChosen.equals("h")) {
-            try {
-                addHomeWorkForStudent();
-            } catch (AlreadyExists e) {
-                System.out.println("This already exists");
-            }
+            addHomeWorkForStudent();
         } else if (optionChosen.equals("s")) {
             displaySchedule();
         } else if (optionChosen.equals("g")) {
@@ -92,17 +82,17 @@ public class CourseManagementSystem {
     //MODIFIES: student [listOfCourses]
     //EFFECTS: if !existsAlready adds the course with the name to the students
     //          else throws AlreadyExists error
-    private void addCourseForStudent() throws AlreadyExists, NullCourseException {
+    private void addCourseForStudent() {
         System.out.println("add the name of the course [not case sensitive] ");
         String name = scanner.nextLine();
         name = name.toLowerCase();
         try {
             Course course = new Course(name);
             student.addCourse(course);
-        } catch (AlreadyExists e) {
-            throw new AlreadyExists();
+        }  catch (AlreadyExists e) {
+            System.out.println("This already exists");
         }  catch (NullCourseException e) {
-            throw new NullCourseException();
+            System.out.println("An error occured while adding the course, I am sorry :( ...  try again?");
         }
 
     }
@@ -110,7 +100,7 @@ public class CourseManagementSystem {
     //EFFECTS: gets the course through the getCourse method
     //         if catches NullCourseException, TooLongDuration, AlreadyExists shows the corresponding message
     //         sends the chosen course to the checkIfHomeWorkAlreadyInCourse
-    private void addHomeWorkForStudent() throws AlreadyExists {
+    private void addHomeWorkForStudent() {
         System.out.println("you will have to add some details about the course");
         try {
             Course courseChosen = getCourse();
@@ -120,7 +110,7 @@ public class CourseManagementSystem {
         } catch (TooLongDuration e) {
             System.out.println("You should not have more than 20 hours of work in 1 day, split your work :)");
         } catch (AlreadyExists e) {
-            throw new AlreadyExists();
+            System.out.println("This already exists");
         } catch (NullHomeWorkException e) {
             System.out.println("HomeWork not added properly, I am sorry :(...try again?");
         }
