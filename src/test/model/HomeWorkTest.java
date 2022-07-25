@@ -53,9 +53,11 @@ public class HomeWorkTest {
 
     @Test
     public void testChangeHomeWorksForAnother(){
-        assertEquals(hwk.getStatus(), "incomplete");
+        assertEquals(hwk2.getStatus(), "incomplete");
         hwk2.changeStatus();
-        assertEquals(hwk.getStatus(), "incomplete");
+        assertEquals(hwk2.getStatus(), "done");
+        hwk2.changeStatus();
+        assertEquals(hwk2.getStatus(), "incomplete");
 
         assertEquals(hwk.getGrade(), 0);
         hwk2.setGrade(99);
