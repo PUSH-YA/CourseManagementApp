@@ -366,9 +366,10 @@ public class StudentTest {
         }
         catch (AlreadyExists e) {
             fail();
+
         }
         catch (TooLongDuration e) {
-
+            displaySchedule();
         } catch (NullHomeWorkException e) {
             fail();
         }  catch (NullCourseException e) {

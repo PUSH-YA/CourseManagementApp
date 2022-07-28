@@ -73,11 +73,10 @@ public class Student {
         Set<LocalDate> dates = schedule.keySet();
         if (dates.contains(hwk.getDate())) {
             List<HomeWork> homeworks = schedule.get(hwk.getDate());
-            try {
+            int totalDuration = hwk.getDuration() + isItTooLong(homeworks);
+            if (totalDuration <= 20) {
                 homeworks.add(hwk);
-                schedule.put(hwk.getDate(), homeworks);
-                isItTooLong(homeworks);
-            } catch (TooLongDuration e) {
+            } else if (totalDuration > 20) {
                 throw new TooLongDuration();
             }
         } else {
@@ -91,14 +90,12 @@ public class Student {
 
     //EFFECTS:      calculates the total duration of the homeworks in the list
     //             if total duration > 20 hours, throws TooLongDurationError exception
-    private void isItTooLong(List<HomeWork> homeworks) throws TooLongDuration {
+    private int isItTooLong(List<HomeWork> homeworks) {
         int total = 0;
         for (HomeWork hwk : homeworks) {
             total += hwk.getDuration();
         }
-        if (total > 20) {
-            throw new TooLongDuration();
-        }
+        return total;
     }
 
     //EFFECTS: returns false if the student is already registered in the
