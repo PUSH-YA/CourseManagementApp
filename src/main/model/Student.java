@@ -54,6 +54,12 @@ public class Student implements Writable {
 
     }
 
+    //MODIFIES: listOfCourses
+    //EFFECTS: adds the course directly to the student without checking for null course exception
+    public void addCourseJson(Course course) {
+        listOfCourses.add(course);
+    }
+
     //EFFECTS:      Based on the listOfCourse:
     //              Takes each homework for each course and then passes it to the addHomeWorkToSchedule
     //              if the total duration for 1 date > 20 hours, cannot add it and throws tooLongDuration

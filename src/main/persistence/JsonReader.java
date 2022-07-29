@@ -65,16 +65,12 @@ public class JsonReader {
 
     // MODIFIES: course
     // EFFECTS: parses course from JSON object and adds it to student
-    private boolean addCourse(Student std, JSONObject jsonObject) {
-        try {
-            String name = jsonObject.getString("name");
-            Course course = new Course(name);
-            addHomeWorks(course, jsonObject);
-            std.addCourse(course);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+    private void addCourse(Student std, JSONObject jsonObject) {
+
+        String name = jsonObject.getString("name");
+        Course course = new Course(name);
+        addHomeWorks(course, jsonObject);
+        std.addCourseJson(course);
     }
 
     // MODIFIES: Course
@@ -89,7 +85,7 @@ public class JsonReader {
 
     // MODIFIES: std
     // EFFECTS: parses homework from JSON object and adds it to the course, returns course
-    private boolean addHomeWork(Course course, JSONObject jsonObject) {
+    private void addHomeWork(Course course, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String startDate = jsonObject.getString("start date");
         String courseName = jsonObject.getString("course");
@@ -108,13 +104,7 @@ public class JsonReader {
         if (done) {
             hwk.changeStatus();
         }
-
-        try {
-            course.addHomeWork(hwk);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        course.addHomeWorkJson(hwk);
     }
 }
 

@@ -51,6 +51,12 @@ public class Course implements Writable {
         }
     }
 
+    //MODIFIES: homeworks
+    //EFFECTS: adds homework to homeworks for JSON object
+    public void addHomeWorkJson(HomeWork hwk) {
+        homeworks.add(hwk);
+    }
+
     //MODIFIES: courseGrade
     //EFFECTS: calculates the weighted grades based on the homework and changes the courseGrade accordingly
     //          if there are no homeworks, returns 0
