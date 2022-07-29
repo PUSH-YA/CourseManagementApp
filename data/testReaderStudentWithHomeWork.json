@@ -1,0 +1,29 @@
+{
+  "name": "Jeff",
+  "courseList": [
+    {
+      "homeworks": [{
+        "start date": "24/03/2022",
+        "duration": 3,
+        "grade": 10,
+        "name": "hwk",
+        "done?": false,
+        "course": "cpsc",
+        "weighing": 30
+      }],
+      "name": "english"
+    },
+    {
+      "homeworks": [{
+        "start date": "24/03/2022",
+        "duration": 3,
+        "grade": 0,
+        "name": "hwk2",
+        "done?": true,
+        "course": "cpsc",
+        "weighing": 30
+      }],
+      "name": "comp sci"
+    }
+  ]
+}

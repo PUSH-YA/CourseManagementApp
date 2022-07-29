@@ -1,0 +1,29 @@
+{
+    "name": "pushya",
+    "courseList": [
+        {
+            "homeworks": [{
+                "start date": "24/03/2022",
+                "duration": 3,
+                "grade": 0,
+                "name": "re",
+                "done?": false,
+                "course": "english",
+                "weighing": 23
+            }],
+            "name": "english"
+        },
+        {
+            "homeworks": [{
+                "start date": "24/03/2022",
+                "duration": 4,
+                "grade": 0,
+                "name": "examlet2",
+                "done?": false,
+                "course": "cpsc",
+                "weighing": 50
+            }],
+            "name": "cpsc"
+        }
+    ]
+}

@@ -73,6 +73,9 @@ public class StudentTest {
             course2.addHomeWork(hwk2);
             course2.addHomeWork(hwk3);
 
+            //get name
+            assertEquals(student.getName(), "Jeff");
+
             //get List of Course
             student.addCourse(course1);
             student.addCourse(course2);

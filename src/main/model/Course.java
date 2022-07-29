@@ -2,12 +2,15 @@ package model;
 
 import model.exceptions.AlreadyExists;
 import model.exceptions.NullHomeWorkException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //represents a course that the student might be enrolled in with its own homeworks to do and a grade
-public class Course {
+public class Course implements Writable {
 
     private List<HomeWork> homeworks;
     private String courseName;
@@ -76,5 +79,23 @@ public class Course {
             }
         }
         return true;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", courseName);
+        json.put("homeworks", homeworksToJson());
+        return json;
+    }
+
+    //EFFECTS: returns things in this course as JSONArray
+    private JSONArray homeworksToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (HomeWork hwk : homeworks) {
+            jsonArray.put(hwk.toJson());
+        }
+        return jsonArray;
     }
 }

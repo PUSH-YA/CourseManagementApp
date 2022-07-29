@@ -1,9 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 //represents a homework for a specific course that needs to be done and carries a % weight of the grade for the course
-public class HomeWork {
+public class HomeWork implements Writable {
     private String name;
     private LocalDate startDate;
     private String course;
@@ -68,4 +73,19 @@ public class HomeWork {
         done = !done;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        json.put("start date", startDate.format(formatter1));
+        json.put("course", course);
+        json.put("grade", grade);
+        json.put("duration", duration);
+        json.put("grade", grade);
+        json.put("weighing", weighing);
+        json.put("done?", done);
+        return json;
+    }
 }

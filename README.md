@@ -33,3 +33,6 @@ really helpful for almost everyone.
 - As a user, I want to visualise the schedule made
 - As a user, I want to keep track of the grades of the received and how I am doing in the course
 - As a user, I want to keep track of the homework's status done or not
+- As a user, I want to save the the information put in my application menu, when trying to quit, it will ask you
+    whether you want to save your data or not.
+- As a user, I want to get the option to reload the data from the course management app.

@@ -1,0 +1,13 @@
+{
+    "name": "Jeff",
+    "courseList": [
+        {
+            "homeworks": [],
+            "name": "english"
+        },
+        {
+            "homeworks": [],
+            "name": "comp sci"
+        }
+    ]
+}

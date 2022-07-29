@@ -3,13 +3,16 @@ package model;
 import model.exceptions.AlreadyExists;
 import model.exceptions.NullCourseException;
 import model.exceptions.TooLongDuration;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.time.LocalDate;
 import java.util.*;
 
 // Represents a student that can be enrolled in multiple courses and have a schedule for
 // their homeworks from multiple courses
-public class Student {
+public class Student implements Writable {
 
     private String name;
     private List<Course> listOfCourses;
@@ -29,6 +32,10 @@ public class Student {
 
     public LinkedHashMap<LocalDate, List<HomeWork>> getSchedule() {
         return schedule;
+    }
+
+    public String getName() {
+        return name;
     }
 
     //MODIFIES: listOfCourses
@@ -109,5 +116,24 @@ public class Student {
             }
         }
         return true;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("courseList", courseListToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray courseListToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Course c : listOfCourses) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
     }
 }

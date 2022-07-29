@@ -7,7 +7,10 @@ import model.HomeWork;
 import model.Student;
 import model.exceptions.NullHomeWorkException;
 import model.exceptions.TooLongDuration;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -30,10 +33,14 @@ public class CourseManagementSystem {
     //EFFECTS: inputs the name of the student given then displays the menu
     private void runMain() {
         System.out.println("Welcome to the Course management System, please enter your name: ");
-
         scanner = new Scanner(System.in);
         String name = scanner.nextLine();
-        student = new Student(name);
+        try {
+            JsonReader reader = new JsonReader("./data/" + name + ".json");
+            student = reader.read();
+        } catch (IOException e) {
+            student = new Student(name);
+        }
         displayMenu();
     }
 
@@ -75,7 +82,42 @@ public class CourseManagementSystem {
         } else if (optionChosen.equals("l")) {
             changeHomeWorkGrade();
         } else {
+            endApp();
             keepRunning = false;
+        }
+    }
+
+    //EFFECTS: asks you how you want to quit the app
+    private void endApp() {
+        System.out.println("how would you like to quit?: " + "\n"
+                           + "\t" + "s for saving your data" + "\n"
+                           + "\t" + "q for not saving your data" + "\n"
+                           + "\t" + "n for going back to the app" + "\n");
+
+        scanner = new Scanner(System.in);
+        String answer = scanner.nextLine();
+        if (answer.equals("s")) {
+            saveQuit();
+        } else if (answer.equals("q")) {
+            keepRunning = false;
+        } else if (answer.equals("n")) {
+            displayMenu();
+        } else {
+            System.out.println("invalid input :(");
+            endApp();
+        }
+
+    }
+
+    //EFFECTS: save the student's data in the student name data file
+    private void saveQuit() {
+        try {
+            JsonWriter writer = new JsonWriter("./data/" + student.getName() + ".json");
+            writer.open();
+            writer.write(student);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("could not file your file...contact the developer");
         }
     }
 
@@ -170,6 +212,11 @@ public class CourseManagementSystem {
     //EFFECTS: displays the schedule with the date and then the homeworks (courseName) corresponding to it
     private void displaySchedule() {
         System.out.println("\n");
+        try {
+            student.scheduleMaker();
+        } catch (TooLongDuration e) {
+            System.out.println("You have more than 20 hours of work 0.0, delete some!");
+        }
         LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
         Set<LocalDate> localDates = schedule.keySet();
         for (LocalDate localDate : localDates) {
