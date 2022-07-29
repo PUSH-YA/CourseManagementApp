@@ -488,5 +488,16 @@ public class StudentTest {
         assertTrue(student.checkCourseList(course1));
     }
 
+    @Test
+    public void testingAddHomeWorkToScheduleAbove20Hrs() {
+        try {
+            String hwk4Date = "25/03/2003";
+            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            LocalDate localDate4 = LocalDate.parse(hwk4Date, formatter1);
+            HomeWork homeWork = new HomeWork("tooLong", localDate4, "english", 20, 50);
+            student.addHomeWorkToSchedule(homeWork);
+        } catch (TooLongDuration e) {
 
+        }
+    }
 }
