@@ -491,6 +491,17 @@ public class StudentTest {
     @Test
     public void testingAddHomeWorkToScheduleAbove20Hrs() {
         try {
+
+            student.addHomeWorkToSchedule(hwk3);
+            student.addHomeWorkToSchedule(hwk4);
+        } catch (TooLongDuration e) {
+
+        }
+    }
+
+    @Test
+    public void testingAddHomeWorkToScheduleTotalDurationAbove20Hrs() {
+        try {
             String hwk4Date = "25/03/2003";
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/MM/yyyy");
             LocalDate localDate4 = LocalDate.parse(hwk4Date, formatter1);
