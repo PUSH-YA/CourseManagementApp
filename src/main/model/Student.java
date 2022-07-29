@@ -83,7 +83,7 @@ public class Student implements Writable {
             int totalDuration = hwk.getDuration() + isItTooLong(homeworks);
             if (totalDuration <= 20) {
                 homeworks.add(hwk);
-            } else if (totalDuration > 20) {
+            } else {
                 throw new TooLongDuration();
             }
         } else {
