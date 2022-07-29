@@ -4,6 +4,7 @@ import model.Course;
 import model.HomeWork;
 import model.Student;
 
+import model.exceptions.NullCourseException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

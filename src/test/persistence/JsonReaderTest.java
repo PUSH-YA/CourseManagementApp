@@ -2,6 +2,8 @@ package persistence;
 
 import model.Course;
 import model.Student;
+import model.exceptions.NullCourseException;
+import model.exceptions.NullHomeWorkException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -84,6 +86,33 @@ public class JsonReaderTest extends JsonTest{
             fail();
         }
 
+    }
+
+    @Test
+    void testCourseNullException() {
+        JsonReader reader = new JsonReader("./data/testNullErrorExceptions.json");
+        try {
+            Student std = reader.read();
+            assertEquals("Jeff", std.getName());
+            List<Course> courseList = std.getListOfCourses();
+            assertEquals(0, courseList.size());
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    void testHomeWorkeNullException() {
+        JsonReader reader = new JsonReader("./data/testHomeWorkException.json");
+        try {
+            Student std = reader.read();
+            assertEquals("Jeff", std.getName());
+            List<Course> courseList = std.getListOfCourses();
+            assertEquals(1, courseList.size());
+
+        } catch (IOException e) {
+            fail();
+        }
     }
 
 }
