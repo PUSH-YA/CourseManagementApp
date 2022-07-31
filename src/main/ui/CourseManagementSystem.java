@@ -35,6 +35,7 @@ public class CourseManagementSystem {
         System.out.println("Welcome to the Course management System, please enter your name: ");
         scanner = new Scanner(System.in);
         String name = scanner.nextLine();
+        name = name.toLowerCase();
         try {
             JsonReader reader = new JsonReader("./data/" + name + ".json");
             student = reader.read();
