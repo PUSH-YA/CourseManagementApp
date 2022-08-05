@@ -64,6 +64,7 @@ public class Student implements Writable {
     //              Takes each homework for each course and then passes it to the addHomeWorkToSchedule
     //              if the total duration for 1 date > 20 hours, cannot add it and throws tooLongDuration
     public void scheduleMaker() throws TooLongDuration {
+        schedule.clear();
         for (Course course : listOfCourses) {
             List<HomeWork> hwkList = course.getHomeworks();
             for (HomeWork hwk : hwkList) {

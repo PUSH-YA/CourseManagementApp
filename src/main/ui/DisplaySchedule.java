@@ -20,9 +20,6 @@ public class DisplaySchedule {
 
 
     public DisplaySchedule(Student student) {
-        System.out.println(Color.darkGray.getRed());
-        System.out.println(Color.darkGray.getGreen());
-        System.out.println(Color.darkGray.getBlue());
         this.student = student;
         try {
             student.scheduleMaker();

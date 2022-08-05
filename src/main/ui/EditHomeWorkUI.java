@@ -151,6 +151,14 @@ public class EditHomeWorkUI {
             HomeWork hwk = getHomeWork(course, name);
             hwk.setGrade(grade);
             hwk.changeStatus(done);
+            String message = "homework grade is " + hwk.getGrade() + "\n"
+                    + "Course grade is " + course.getGrade();
+            if (done) {
+                message = message + "\n homework is done";
+            } else {
+                message = message + "\n homework is incomplete";
+            }
+            JOptionPane.showMessageDialog(frame, message);
         } catch (NullHomeWorkException e) {
             throw new NullHomeWorkException();
         }

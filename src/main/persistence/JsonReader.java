@@ -4,7 +4,6 @@ import model.Course;
 import model.HomeWork;
 import model.Student;
 
-import model.exceptions.NullCourseException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,7 +14,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 
 public class JsonReader {

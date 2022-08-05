@@ -100,32 +100,27 @@ public class AddHomeWorkUI {
         frame.add(panel);
         frame.setVisible(true);
 
-        String course = courseField.getText();
-        String name = nameField.getText();
-        String date = dateField.getText();
-        String duration = durationField.getText();
-        String weighing = weighingField.getText();
-
-        addHomeWorkButtonAction(button, course, name, date, duration, weighing);
+        addHomeWorkButtonAction(button);
     }
 
     //MODIFIES: student
     //EFFECTS: creates the action even for the submit button and shows the corresponding
     //          message based on the error recived
-    private void addHomeWorkButtonAction(JButton button, String course, String name,
-                                         String date, String weighing, String duration) {
+    private void addHomeWorkButtonAction(JButton button) {
 
         button.addActionListener(new ActionListener()  {
 
             public void actionPerformed(ActionEvent e) {
                 try {
+                    String course = courseField.getText();
+                    String name = nameField.getText();
                     if (name.length() <= 0) {
-                        JOptionPane.showMessageDialog(frame, "Put a proper homework name :(");
-                        new AddHomeWorkUI(student);
-                        frame.dispose();
-                    } else {
-                        checkIfHomeWorkalreadyInCourse(getCourse(course), name, date, weighing, duration);
+                        JOptionPane.showMessageDialog(frame,"Put a proper homework name, stop trying to find bugs :(");
                     }
+                    String date = dateField.getText();
+                    String duration = durationField.getText();
+                    String weighing = weighingField.getText();
+                    addHomeWorkInSchedule(getCourse(course), name, date, weighing, duration);
                 } catch (NullCourseException l) {
                     JOptionPane.showMessageDialog(frame, "No such course exists");
                 } catch (TooLongDuration d) {
@@ -140,24 +135,6 @@ public class AddHomeWorkUI {
         });
     }
 
-    //EFFECTS: gets the name of the homeworks and passes the course and
-    //          the name of the homework to the addHomeWorkInSchedule
-    private void checkIfHomeWorkalreadyInCourse(
-            Course courseChosen, String name, String date, String weighing, String duration)
-            throws TooLongDuration, AlreadyExists, NullHomeWorkException {
-
-        try {
-            addHomeWorkInSchedule(courseChosen, name, date, weighing, duration);
-
-        } catch (TooLongDuration e) {
-            throw new TooLongDuration();
-
-        } catch (NullHomeWorkException e) {
-            throw new NullHomeWorkException();
-        }
-
-    }
-
     //EFFECTS: takes the input of the course,
     //        goes through the list of courses of the student and returns the course with the same name
     //        if no course found, throws NullCourseException
@@ -165,10 +142,9 @@ public class AddHomeWorkUI {
         Course courseChosen = null;
         name = name.toLowerCase();
         List<Course> courseList = student.getListOfCourses();
-        System.out.println(student.getListOfCourses().size());
         for (Course course : courseList) {
             String courseName = course.getCourseName();
-            courseName.toLowerCase();
+            courseName = courseName.toLowerCase();
             if (courseName.equals(name)) {
                 courseChosen = course;
             }
@@ -201,6 +177,7 @@ public class AddHomeWorkUI {
             courseChosen.addHomeWork(homeWork);
             student.addHomeWorkToSchedule(homeWork);
             JOptionPane.showMessageDialog(frame, name + " added to " + courseChosen.getCourseName());
+            frame.dispose();
         } catch (TooLongDuration e) {
             throw new TooLongDuration();
         } catch (AlreadyExists e) {
