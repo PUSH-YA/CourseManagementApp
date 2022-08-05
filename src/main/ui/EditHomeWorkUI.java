@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Locale;
 
 public class EditHomeWorkUI {
     private static final int WIDTH = 480;
@@ -36,6 +35,10 @@ public class EditHomeWorkUI {
     private JButton button;
 
     //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for editing homework frame
+    //          sets up the frame with the correct height and border
+    //          sets up the panel with the grid layout and dark grey background
+    //          instantiate JTextFields, JLabels and Jbutton
+    //          calls to change colour and then add to frame
     public EditHomeWorkUI(Student student) {
         this.student = student;
         frame = new JFrame("Edit HomeWork");
@@ -55,7 +58,7 @@ public class EditHomeWorkUI {
 
         courseLabel = new JLabel("Course of HomeWork name: ");
         nameLabel = new JLabel("HomeWork name: ");
-        gradeLabel = new JLabel("grade achieved [int] : ");
+        gradeLabel = new JLabel("grade achieved [integer] : ");
         doneLabel = new JLabel("is it done? [true or false]");
 
         button = new JButton("submit");
@@ -94,9 +97,11 @@ public class EditHomeWorkUI {
     }
 
 
-    //MODIFIES: student
+    //MODIFIES: student [homework]
     //EFFECTS: creates the action even for the submit button and shows the corresponding
-    //          message based on the error recived
+    //          message based on the error/ exception received
+    //          shows an error message if done is not "true" or "false"
+    //          dispose the frame after being successfully editing homework
     private void editHomeWorkButtonAction(JButton button) {
 
         button.addActionListener(new ActionListener()  {
@@ -144,7 +149,9 @@ public class EditHomeWorkUI {
         return courseChosen;
     }
 
+    //MODIFIES: student [homework]
     //EFFECTS: edits the homework based on the grade and its status
+    //          shows the homework grade, course grade and the current status
     public void editHomeWork(Course course, String name, int grade, Boolean done)
                     throws NullHomeWorkException {
         try {

@@ -40,7 +40,10 @@ public class AddHomeWorkUI {
     //JButton
     private JButton button;
 
-    //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for adding homework frame
+    //EFFECTS: instantiates the student from the constructor
+    //         creates a new JFrame,JPanel, JButton and JTextField for adding homework ui
+    //         set the jframe colour, border and size jpanel layout and add the JLabels accordingly
+    //          change colour
     public AddHomeWorkUI(Student student) {
         this.student = student;
         frame = new JFrame("New HomeWork adding");
@@ -62,15 +65,18 @@ public class AddHomeWorkUI {
         courseLabel = new JLabel("Course of HomeWork name: ");
         nameLabel = new JLabel("HomeWork name: ");
         dateLabel = new JLabel("date in dd/mm/yyyy format: ");
-        durationLabel = new JLabel("duration as a number [hours]");
-        weighingLabel = new JLabel("weighing of homework as a number [%]");
+        durationLabel = new JLabel("duration in hours [integer]");
+        weighingLabel = new JLabel("weighing in % [integer]");
 
         button = new JButton("submit");
 
         changeColour();
     }
 
-    //EFFECTS: creates all the button, fields and labels with the color for the adding homework class
+    //MODIFIES: button and JLabels
+    //EFFECTS: sets the colour of the button to cape honey colour
+    //          set the label colour to white
+    //          calls to add to frame
     public void changeColour() {
         button.setBackground(Color.getHSBColor(58, 64, 27));
         courseLabel.setForeground(Color.white);
@@ -83,9 +89,8 @@ public class AddHomeWorkUI {
 
     //MODIFIES: panel and frame
     //EFFECTS: adds all the buttons, fields and labels to the panels and adds that to the class
+    //          calls add homework button action
     private void addToFrame() {
-
-
         panel.add(courseLabel);
         panel.add(courseField);
         panel.add(nameLabel);
@@ -104,8 +109,10 @@ public class AddHomeWorkUI {
     }
 
     //MODIFIES: student
-    //EFFECTS: creates the action even for the submit button and shows the corresponding
-    //          message based on the error recived
+    //EFFECTS: creates the action event for the submit button and shows the corresponding
+    //          dialogue message based on the error/exception received
+    //          send the text fields received to add homework in schedule
+    //          also show the message if the name is ""
     private void addHomeWorkButtonAction(JButton button) {
 
         button.addActionListener(new ActionListener()  {

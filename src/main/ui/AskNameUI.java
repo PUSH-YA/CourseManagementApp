@@ -1,6 +1,5 @@
 package ui;
 
-import model.Course;
 import model.Student;
 import persistence.JsonReader;
 
@@ -9,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Locale;
 
 public class AskNameUI {
     private static final int WIDTH = 350;
@@ -21,6 +19,8 @@ public class AskNameUI {
     private JTextField field;
 
     //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for asking name frame
+    //         set the jframe colour, border and size jpanel layout and add the
+    //          calls add name method
     public AskNameUI() {
         frame = new JFrame("Student name");
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -37,7 +37,10 @@ public class AskNameUI {
         askForName();
     }
 
-    //EFFECTS: prompts the student to write the name in the field and shows the buttons, fields on the frame
+    //EFFECTS: prompts the student to write the name in the field
+    //          set the button to cape honey colour and label to white
+    //          adds the buttons, fields on the frame
+    //          calls to send method name
     public void askForName() {
         button.setBackground(Color.getHSBColor(58, 64, 27));
         JLabel text = new JLabel("Your name: ", new ImageIcon("./src/main/ui/images/askName.png"), JLabel.RIGHT);
@@ -58,6 +61,8 @@ public class AskNameUI {
     //         sends the student from json file to the CourseManagementUI if it exists
     //          creates a new Student if it no json file exists and sends that
     //          also shows Welcome, student name to the user
+    //          if no name is an empty string then new this and dispose old this
+    //          calls to Course management ui class
     private void sendName() {
         button.addActionListener(new ActionListener() {
 

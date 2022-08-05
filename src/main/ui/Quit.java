@@ -18,6 +18,10 @@ public class Quit {
     private JButton noSave;
     private Student student;
 
+    //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for editing homework frame
+    //          sets up the frame with the correct height and border
+    //          sets up the panel with the grid layout and dark grey background
+    //          calls show buttons
     public Quit(Student student) {
         this.student = student;
         frame = new JFrame("Quit");
@@ -32,6 +36,9 @@ public class Quit {
         showButtons();
     }
 
+    //EFFECTS: show buttons with the correct images and cape honey colour
+    //       add buttons to panel and panel to frame
+    //       call to button actions method
     private void showButtons() {
         save = new JButton("save");
         save.setBackground(Color.getHSBColor(58, 64, 27));
@@ -50,6 +57,9 @@ public class Quit {
         frame.setVisible(true);
     }
 
+    //MODIFIES: studentName.json
+    //EFFECTS: if save button, saves to json file with the student name and exit system
+    //          else, exists the system without saving
     private void buttonActions() {
         save.addActionListener(new ActionListener() {
             @Override

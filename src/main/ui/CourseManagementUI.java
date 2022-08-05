@@ -6,7 +6,6 @@ import model.exceptions.AlreadyExists;
 import model.exceptions.NullCourseException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,14 +26,17 @@ public class CourseManagementUI {
         createAndShowGUI();
     }
 
-    //MODIFIES: panel and frame
-    //EFFECTS: creates the jframe for this and shows the methods for each function
-    //          showing labels
-    //          adding new course
-    //          adding new homework
-    //          editing an existing homework
-    //          display the schedule
-    //          quit the application
+//    MODIFIES: panel and frame
+//    EFFECTS: creates the jframe for this and sets up frame with correct height and border
+//              creates the jpanel with grid layout and dark grey
+//              creates the buttons adds the buttons to the panel and panel to the frame
+//               shows the methods for each function:
+//                                          showing labels
+//                                          adding new course
+//                                          adding new homework
+//                                          editing an existing homework
+//                                          display the schedule
+//                                          quit the application
     public void createAndShowGUI() {
         frame = new JFrame(student.getName() + "'s course management system");
         frame.setLayout(new BorderLayout());
@@ -62,7 +64,11 @@ public class CourseManagementUI {
 
     }
 
-
+    //MODIFIES: JPanel for the name and labels, JLabels for the title
+    //EFFECTS: shows the student's name with the graduating symbol
+    //          shows "course management" with tracking progress icon underneath
+    //          shows the labels above with the courier font with 60 and 30 size respectively
+    //          calls to add icons to panel
     public void showLabels() {
         JPanel labelPanel  = new JPanel();
         labelPanel.setLayout(new GridLayout(2,1));
@@ -93,6 +99,9 @@ public class CourseManagementUI {
 
     }
 
+    //MODIFIES: panel
+    //EFFECTS: adds JLabels to namePanel, nameLabel and namePanel to labelPanel
+    //          adds the above to panel
     private void addIconToPanel(JPanel namePanel, JPanel labelPanel, JLabel title1,
                                 JLabel title2, JLabel title3, JLabel nameLabel) {
         JLabel icon = new JLabel(new ImageIcon("./src/main/ui/images/title.png"));
@@ -109,6 +118,7 @@ public class CourseManagementUI {
     //MODIFIES: panel and frame
     //EFFECTS: shows the add course buttons, text and label
     //          when clicked, sends the course string to addCourseForStudent
+    //          add cuorse for student
     public void askForCourse() {
         JPanel coursePanel = new JPanel();
         coursePanel.setLayout(new FlowLayout());
@@ -139,6 +149,7 @@ public class CourseManagementUI {
         addCourseButtonsToPanels(coursePanel, text, field, button);
     }
 
+    //MODIFIES: adds buttons to coursePanel, adds CoursePanel to ButtonPanel
     private void addCourseButtonsToPanels(JPanel coursePanel, JLabel text, JTextField field, JButton button) {
         coursePanel.add(text);
         coursePanel.add(field);
@@ -167,10 +178,10 @@ public class CourseManagementUI {
 
     }
 
-
-    //MODIFIES: panel and frame
-    //EFFECTS: shows the add homework buttons, text and label
-    //          when clicked, opens the addHomeWorkUI
+    //MODIFIES: button panel
+    //EFFECTS: shows the add and edit homework buttons
+    //          when clicked, opens the addHomeWorkUI or editHomeWorkUI correspondingly
+    //          adds buttons to homework panel and adds that to button panel
     public void hwkButtons() {
         JPanel hwkPanel = new JPanel();
         hwkPanel.setLayout(new FlowLayout());
@@ -205,6 +216,10 @@ public class CourseManagementUI {
     }
 
 
+    //MODIFIES: button panel
+    //EFFECTS: shows the display schedule and quit buttons
+    //          when clicked, opens the display schedule or quit correspondingly
+    //          adds buttons to homework panel and adds that to button panel
     private void displayScheduleAndQuit() {
 
         JPanel lastPanel = new JPanel();

@@ -19,6 +19,10 @@ public class DisplaySchedule {
     private JPanel panel;
 
 
+    //EFFECTS: instantiates the student from the constructor
+    //          creates a jframe with proper colour and border
+    //          creates a panel with the correct colour and box layout [y-axis]
+    //          adds panel to frame and then calls display method
     public DisplaySchedule(Student student) {
         this.student = student;
         try {
@@ -41,6 +45,10 @@ public class DisplaySchedule {
     }
 
 
+    // EFFECTS: takes the schedule and parses through the key Set of local date
+    //          for each date creates a panel with flow layout, dark colour, cape honey colour and large font
+    //          for each homework list sends the panel and the list to addhomework to panel
+    //          adds frame to panel
     private void display() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LinkedHashMap<LocalDate, List<HomeWork>> schedule = student.getSchedule();
@@ -60,6 +68,8 @@ public class DisplaySchedule {
         frame.setVisible(true);
     }
 
+    //EFFECTS: adds each homework to the panel in flow layout with the course name
+    //          indicating the course name and status with icon and text
     private void addHomeWorksToPanel(List<HomeWork> hwks, JPanel temp) {
         for (HomeWork h : hwks) {
             String label = h.getName() + " (" + h.getCourse() + ") "
@@ -71,6 +81,8 @@ public class DisplaySchedule {
         }
     }
 
+    //EFFECTS: returns "done" if the homework is done
+    //          returns "incomplete" if the homework is not done
     private String doneORNot(HomeWork hwk) {
         if (hwk.getStatus()) {
             return "done";
@@ -79,6 +91,8 @@ public class DisplaySchedule {
         }
     }
 
+    //EFFECTS: returns the icon for homework,
+    //         red.png for incomplete homework and green.png for complete homework
     private Icon makeRect(HomeWork hwk) {
         ImageIcon image = null;
         if (hwk.getStatus()) {
