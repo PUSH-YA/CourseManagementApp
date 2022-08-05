@@ -2,20 +2,31 @@
     "name": "pushya",
     "courseList": [
         {
-            "homeworks": [{
-                "start date": "24/03/2022",
-                "duration": 3,
-                "grade": 0,
-                "name": "re",
-                "done?": false,
-                "course": "english",
-                "weighing": 23
-            }],
+            "homeworks": [
+                {
+                    "start date": "24/03/2022",
+                    "duration": 3,
+                    "grade": 0,
+                    "name": "re",
+                    "done?": false,
+                    "course": "english",
+                    "weighing": 23
+                },
+                {
+                    "start date": "24/03/2022",
+                    "duration": 3,
+                    "grade": 0,
+                    "name": "somethin",
+                    "done?": true,
+                    "course": "english",
+                    "weighing": 4
+                }
+            ],
             "name": "english"
         },
         {
             "homeworks": [{
-                "start date": "24/03/2022",
+                "start date": "25/03/2022",
                 "duration": 4,
                 "grade": 0,
                 "name": "examlet2",
@@ -24,6 +35,18 @@
                 "weighing": 50
             }],
             "name": "cpsc"
+        },
+        {
+            "homeworks": [{
+                "start date": "25/03/2022",
+                "duration": 10,
+                "grade": 10,
+                "name": "wubba lubba dub dub",
+                "done?": true,
+                "course": "trial1",
+                "weighing": 90
+            }],
+            "name": "trial1"
         }
     ]
 }

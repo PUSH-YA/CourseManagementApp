@@ -100,10 +100,7 @@ public class JsonReader {
         HomeWork hwk = new HomeWork(name, localDate, courseName, duration, weighing);
 
         hwk.setGrade(grade);
-
-        if (done) {
-            hwk.changeStatus();
-        }
+        hwk.changeStatus(done);
         course.addHomeWorkJson(hwk);
     }
 }

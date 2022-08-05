@@ -78,8 +78,6 @@ public class CourseManagementSystem {
             displaySchedule();
         } else if (optionChosen.equals("g")) {
             showCourseGrade();
-        } else if (optionChosen.equals("d")) {
-            changeStatus();
         } else if (optionChosen.equals("l")) {
             changeHomeWorkGrade();
         } else {
@@ -291,18 +289,18 @@ public class CourseManagementSystem {
     //MODIFIES: student [homework]
     //EFFECTS: gets the course and the homeworks and then changes the status of the homework
     //          [from true and vice versa] and then displays whether that homework is "done" or "incomplete"
-    private void changeStatus() {
-        try {
-            Course course = getCourse();
-            HomeWork hwk = getHomeWork(course);
-            hwk.changeStatus();
-            System.out.println("Changing the status of " + hwk.getName() + "to " + hwk.getStatus());
-        } catch (NullCourseException e) {
-            System.out.println("you are not registered in this course currently");
-        } catch (NullHomeWorkException e) {
-            System.out.println("you have no homework with that name, do not lie :(");
-        }
-    }
+//    private void changeStatus() {
+//        try {
+//            Course course = getCourse();
+//            HomeWork hwk = getHomeWork(course);
+//            hwk.changeStatus();
+//            System.out.println("Changing the status of " + hwk.getName() + "to " + hwk.getStatus());
+//        } catch (NullCourseException e) {
+//            System.out.println("you are not registered in this course currently");
+//        } catch (NullHomeWorkException e) {
+//            System.out.println("you have no homework with that name, do not lie :(");
+//        }
+//    }
 
     //MODIFIES: student [homework]
     //EFFECTS: gets the course and the homeworks and then changes the grade of that homeworks

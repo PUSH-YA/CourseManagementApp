@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HomeWorkTest {
     private HomeWork hwk;
@@ -42,11 +42,11 @@ public class HomeWorkTest {
 
     @Test
     public void testChangeStatusAndGrade(){
-        assertEquals(hwk.getStatus(), "incomplete");
-        hwk.changeStatus();
-        assertEquals(hwk.getStatus(), "done");
-        hwk.changeStatus();
-        assertEquals(hwk.getStatus(), "incomplete");
+        assertFalse(hwk.getStatus());
+        hwk.changeStatus(true);
+        assertTrue(hwk.getStatus());
+        hwk.changeStatus(false);
+        assertFalse(hwk.getStatus());
 
 
         assertEquals(hwk.getGrade(), 0);
@@ -56,11 +56,11 @@ public class HomeWorkTest {
 
     @Test
     public void testChangeHomeWorksForAnother(){
-        assertEquals(hwk.getStatus(), "incomplete");
-        hwk2.changeStatus();
-        assertEquals(hwk.getStatus(), "incomplete");
-        hwk2.changeStatus();
-        assertEquals(hwk.getStatus(), "incomplete");
+        assertFalse(hwk.getStatus());
+        hwk2.changeStatus(true);
+        assertFalse(hwk.getStatus());
+        hwk2.changeStatus(false);
+        assertFalse(hwk.getStatus());
 
         assertEquals(hwk.getGrade(), 0);
         hwk2.setGrade(99);

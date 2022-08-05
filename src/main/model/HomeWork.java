@@ -57,20 +57,15 @@ public class HomeWork implements Writable {
         this.grade = grade;
     }
 
-    //EFFECTS: returns the status of the homework as a string
-    //          true is "done" and false is "incomplete"
-    public String getStatus() {
-        if (done) {
-            return "done";
-        } else {
-            return "incomplete";
-        }
+    //EFFECTS: returns the status of the homework
+    public boolean getStatus() {
+        return done;
     }
 
     //MODIFIES: done
     //EFFECTS: change the status of the code from the previous state
-    public void changeStatus() {
-        done = !done;
+    public void changeStatus(boolean status) {
+        done = status;
     }
 
     @Override
