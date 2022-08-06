@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class EditHomeWorkUI {
@@ -79,6 +81,7 @@ public class EditHomeWorkUI {
 
     //MODIFIES: panel and frame
     //EFFECTS: adds all the buttons, fields and labels to the panels and adds that to the class
+    //          if pressed button or enter directs to the edit homework button
     private void addToFrame() {
         panel.add(courseLabel);
         panel.add(courseField);
@@ -93,40 +96,49 @@ public class EditHomeWorkUI {
         frame.add(panel);
         frame.setVisible(true);
 
-        editHomeWorkButtonAction(button);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                editHomeWorkButtonAction();
+            }
+        });
+
+        button.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    editHomeWorkButtonAction();
+                }
+            }
+        });
+
     }
 
 
     //MODIFIES: student [homework]
-    //EFFECTS: creates the action even for the submit button and shows the corresponding
+    //EFFECTS:  sends the edited homework to the student
     //          message based on the error/ exception received
     //          shows an error message if done is not "true" or "false"
     //          dispose the frame after being successfully editing homework
-    private void editHomeWorkButtonAction(JButton button) {
-
-        button.addActionListener(new ActionListener()  {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String course = courseField.getText();
-                String name = nameField.getText();
-                int grade = Integer.parseInt(gradeField.getText());
-                String done = doneField.getText().toLowerCase();
-                if (!done.equals("true") && !done.equals("false")) {
-                    JOptionPane.showMessageDialog(frame, "please just use true or false");
-                }
-                Boolean doneBool = Boolean.parseBoolean(done);
-                try {
-                    Course courseFound = getCourse(course);
-                    editHomeWork(courseFound, name, grade, doneBool);
-                    frame.dispose();
-                } catch (NullCourseException l) {
-                    JOptionPane.showMessageDialog(frame, "No such course exists");
-                } catch (NullHomeWorkException n) {
-                    JOptionPane.showMessageDialog(frame, "No such homework exists");
-                }
+    private void editHomeWorkButtonAction() {
+        {
+            String course = courseField.getText();
+            String name = nameField.getText();
+            int grade = Integer.parseInt(gradeField.getText());
+            String done = doneField.getText().toLowerCase();
+            if (!done.equals("true") && !done.equals("false")) {
+                JOptionPane.showMessageDialog(frame, "please just use true or false");
             }
+            Boolean doneBool = Boolean.parseBoolean(done);
+            try {
+                Course courseFound = getCourse(course);
+                editHomeWork(courseFound, name, grade, doneBool);
+                frame.dispose();
+            } catch (NullCourseException l) {
+                JOptionPane.showMessageDialog(frame, "No such course exists");
+            } catch (NullHomeWorkException n) {
+                JOptionPane.showMessageDialog(frame, "No such homework exists");
+            }
+        }
 
-        });
     }
 
     //EFFECTS: takes the input of the course,

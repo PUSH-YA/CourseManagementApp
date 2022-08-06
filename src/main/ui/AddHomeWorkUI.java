@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -77,6 +79,7 @@ public class AddHomeWorkUI {
     //EFFECTS: sets the colour of the button to cape honey colour
     //          set the label colour to white
     //          calls to add to frame
+    //          then adds panel to frame and sets visibility true
     public void changeColour() {
         button.setBackground(Color.getHSBColor(58, 64, 27));
         courseLabel.setForeground(Color.white);
@@ -85,11 +88,13 @@ public class AddHomeWorkUI {
         durationLabel.setForeground(Color.white);
         weighingLabel.setForeground(Color.white);
         addToFrame();
+        frame.add(panel);
+        frame.setVisible(true);
     }
 
     //MODIFIES: panel and frame
     //EFFECTS: adds all the buttons, fields and labels to the panels and adds that to the class
-    //          calls add homework button action
+    //          calls add homework action if button or pressed enter
     private void addToFrame() {
         panel.add(courseLabel);
         panel.add(courseField);
@@ -102,10 +107,20 @@ public class AddHomeWorkUI {
         panel.add(weighingLabel);
         panel.add(weighingField);
         panel.add(button);
-        frame.add(panel);
-        frame.setVisible(true);
 
-        addHomeWorkButtonAction(button);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                addHomeWorkButtonAction();
+            }
+        });
+
+        button.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    addHomeWorkButtonAction();
+                }
+            }
+        });
     }
 
     //MODIFIES: student
@@ -113,34 +128,28 @@ public class AddHomeWorkUI {
     //          dialogue message based on the error/exception received
     //          send the text fields received to add homework in schedule
     //          also show the message if the name is ""
-    private void addHomeWorkButtonAction(JButton button) {
-
-        button.addActionListener(new ActionListener()  {
-
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String course = courseField.getText();
-                    String name = nameField.getText();
-                    if (name.length() <= 0) {
-                        JOptionPane.showMessageDialog(frame,"Put a proper homework name, stop trying to find bugs :(");
-                    }
-                    String date = dateField.getText();
-                    String duration = durationField.getText();
-                    String weighing = weighingField.getText();
-                    addHomeWorkInSchedule(getCourse(course), name, date, weighing, duration);
-                } catch (NullCourseException l) {
-                    JOptionPane.showMessageDialog(frame, "No such course exists");
-                } catch (TooLongDuration d) {
-                    JOptionPane.showMessageDialog(frame, "Split your work :), have < 20 hrs work each day");
-                } catch (AlreadyExists a) {
-                    JOptionPane.showMessageDialog(frame, "This homework already exists");
-                } catch (NullHomeWorkException n) {
-                    JOptionPane.showMessageDialog(frame, "Something went wrong, please try again :)");
-                }
+    private void addHomeWorkButtonAction() {
+        try {
+            String course = courseField.getText();
+            String name = nameField.getText();
+            if (name.length() <= 0) {
+                JOptionPane.showMessageDialog(frame,"Put a proper homework name, stop trying to find bugs :(");
             }
-
-        });
+            String date = dateField.getText();
+            String duration = durationField.getText();
+            String weighing = weighingField.getText();
+            addHomeWorkInSchedule(getCourse(course), name, date, weighing, duration);
+        } catch (NullCourseException l) {
+            JOptionPane.showMessageDialog(frame, "No such course exists");
+        } catch (TooLongDuration d) {
+            JOptionPane.showMessageDialog(frame, "Split your work :), have < 20 hrs work each day");
+        } catch (AlreadyExists a) {
+            JOptionPane.showMessageDialog(frame, "This homework already exists");
+        } catch (NullHomeWorkException n) {
+            JOptionPane.showMessageDialog(frame, "Something went wrong, please try again :)");
+        }
     }
+
 
     //EFFECTS: takes the input of the course,
     //        goes through the list of courses of the student and returns the course with the same name

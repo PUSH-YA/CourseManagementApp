@@ -1,0 +1,40 @@
+{
+    "name": "thanemo",
+    "courseList": [
+        {
+            "homeworks": [
+                {
+                    "start date": "9/07/2022",
+                    "duration": 8,
+                    "grade": 0,
+                    "name": "fingering101",
+                    "done?": false,
+                    "course": "fucking",
+                    "weighing": 9
+                },
+                {
+                    "start date": "9/08/2022",
+                    "duration": 4,
+                    "grade": 98,
+                    "name": "bondage",
+                    "done?": true,
+                    "course": "fucking",
+                    "weighing": 12
+                }
+            ],
+            "name": "fucking"
+        },
+        {
+            "homeworks": [{
+                "start date": "9/08/2022",
+                "duration": 2,
+                "grade": 0,
+                "name": "gagi",
+                "done?": false,
+                "course": "gagging",
+                "weighing": 2
+            }],
+            "name": "gagging"
+        }
+    ]
+}

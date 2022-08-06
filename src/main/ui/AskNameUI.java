@@ -5,8 +5,8 @@ import persistence.JsonReader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class AskNameUI {
@@ -15,7 +15,6 @@ public class AskNameUI {
     private JFrame frame;
     private JPanel panel;
     private Student student;
-    private JButton button;
     private JTextField field;
 
     //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for asking name frame
@@ -33,28 +32,32 @@ public class AskNameUI {
         panel.setLayout(new FlowLayout());
 
         field = new JTextField();
-        button = new JButton("enter name");
         askForName();
     }
 
     //EFFECTS: prompts the student to write the name in the field
     //          set the button to cape honey colour and label to white
     //          adds the buttons, fields on the frame
-    //          calls to send method name
+    //          adds key listener to the field
+    //          calls to send method name if pressed enter
     public void askForName() {
-        button.setBackground(Color.getHSBColor(58, 64, 27));
         JLabel text = new JLabel("Your name: ", new ImageIcon("./src/main/ui/images/askName.png"), JLabel.RIGHT);
         text.setForeground(Color.white);
 
         field.setPreferredSize(new Dimension(100, 30));
+        field.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    sendName();
+                }
+            }
+        });
 
         panel.add(text);
         panel.add(field);
-        panel.add(button);
         frame.add(panel);
         frame.setVisible(true);
-        sendName();
-
     }
 
     //EFFECTS: takes the name and then finds the correct name from the json file
@@ -64,33 +67,28 @@ public class AskNameUI {
     //          if no name is an empty string then new this and dispose old this
     //          calls to Course management ui class
     private void sendName() {
-        button.addActionListener(new ActionListener() {
+        String name = field.getText();
+        name = name.toLowerCase();
+        if (name.length() <= 0) {
+            JOptionPane.showMessageDialog(frame, "Put a name in, don't try to find bugs :( ");
+            new AskNameUI();
+            frame.dispose();
+        } else {
+            JOptionPane.showMessageDialog(frame, "Welcome, " + name);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = field.getText();
-                name = name.toLowerCase();
-                if (name.length() <= 0) {
-                    JOptionPane.showMessageDialog(frame, "Put a name in, don't try to find bugs :( ");
-                    new AskNameUI();
-                    frame.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Welcome, " + name);
+            try {
+                JsonReader reader = new JsonReader("./data/" + name + ".json");
+                student = reader.read();
 
-                    try {
-                        JsonReader reader = new JsonReader("./data/" + name + ".json");
-                        student = reader.read();
+            } catch (IOException l) {
+                student = new Student(name);
 
-                    } catch (IOException l) {
-                        student = new Student(name);
+            } finally {
+                CourseManagementUI cu = new CourseManagementUI(student);
+                frame.dispose();
 
-                    } finally {
-                        CourseManagementUI cu = new CourseManagementUI(student);
-                        frame.dispose();
-
-                    }
-                }
             }
-        });
+        }
     }
+
 }
