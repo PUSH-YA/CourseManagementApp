@@ -27,6 +27,9 @@ public class EditHomeWorkUI {
     private JTextField gradeField;
     private JTextField doneField;
 
+    //JComboBox
+    private JComboBox courseBox;
+
     //JLabels
     private JLabel courseLabel;
     private JLabel nameLabel;
@@ -58,6 +61,8 @@ public class EditHomeWorkUI {
         gradeField = new JTextField();
         doneField = new JTextField();
 
+        courseBox = new JComboBox(getName(student.getListOfCourses()));
+
         courseLabel = new JLabel("Course of HomeWork name: ");
         nameLabel = new JLabel("HomeWork name: ");
         gradeLabel = new JLabel("grade achieved [integer] : ");
@@ -80,11 +85,11 @@ public class EditHomeWorkUI {
     }
 
     //MODIFIES: panel and frame
-    //EFFECTS: adds all the buttons, fields and labels to the panels and adds that to the class
+    //EFFECTS: adds all the buttons, fields, labels and combobox to the panels and adds that to the class
     //          if pressed button or enter directs to the edit homework button
     private void addToFrame() {
         panel.add(courseLabel);
-        panel.add(courseField);
+        panel.add(courseBox);
         panel.add(nameLabel);
         panel.add(nameField);
         panel.add(gradeLabel);
@@ -109,7 +114,17 @@ public class EditHomeWorkUI {
                 }
             }
         });
+    }
 
+    //EFFECTS: takes a list of courses and returns a string of their name
+    private String[] getName(List<Course> courses) {
+        String[] names = new String[courses.size()];
+        int i = 0;
+        for (Course c : courses) {
+            names[i] = c.getCourseName();
+            i++;
+        }
+        return names;
     }
 
 
@@ -120,7 +135,7 @@ public class EditHomeWorkUI {
     //          dispose the frame after being successfully editing homework
     private void editHomeWorkButtonAction() {
         {
-            String course = courseField.getText();
+            String course = courseBox.getSelectedItem().toString();
             String name = nameField.getText();
             int grade = Integer.parseInt(gradeField.getText());
             String done = doneField.getText().toLowerCase();
@@ -135,7 +150,7 @@ public class EditHomeWorkUI {
             } catch (NullCourseException l) {
                 JOptionPane.showMessageDialog(frame, "No such course exists");
             } catch (NullHomeWorkException n) {
-                JOptionPane.showMessageDialog(frame, "No such homework exists");
+                JOptionPane.showMessageDialog(frame, "No such homework exists in the selected course");
             }
         }
 

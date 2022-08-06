@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class CourseManagementUI {
@@ -135,18 +137,31 @@ public class CourseManagementUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String course = field.getText();
-                if (course.length() <= 0) {
-                    JOptionPane.showMessageDialog(frame, "put a proper course name :(");
-                    new CourseManagementUI(student);
-                    frame.dispose();
-                } else {
-                    addCourseForStudent(course);
+                action(field);
+            }
+        });
+
+        button.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    action(field);
                 }
             }
         });
 
         addCourseButtonsToPanels(coursePanel, text, field, button);
+    }
+
+    //EFFECTS: if the name field is empty sends an error message otherwise calls the add course for student method
+    private void action(JTextField field) {
+        String course = field.getText();
+        if (course.length() <= 0) {
+            JOptionPane.showMessageDialog(frame, "put a proper course name :(");
+            new CourseManagementUI(student);
+            frame.dispose();
+        } else {
+            addCourseForStudent(course);
+        }
     }
 
     //MODIFIES: adds buttons to coursePanel, adds CoursePanel to ButtonPanel

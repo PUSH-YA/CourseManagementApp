@@ -16,6 +16,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddHomeWorkUI {
@@ -27,6 +28,7 @@ public class AddHomeWorkUI {
 
     //JTextFields
     private JTextField courseField;
+    private JComboBox  coursebox;
     private JTextField nameField;
     private JTextField dateField;
     private JTextField durationField;
@@ -59,6 +61,7 @@ public class AddHomeWorkUI {
         panel.setBackground(Color.darkGray);
 
         courseField = new JTextField();
+        coursebox = new JComboBox(getName(student.getListOfCourses()));
         nameField = new JTextField();
         dateField = new JTextField();
         durationField = new JTextField();
@@ -73,6 +76,18 @@ public class AddHomeWorkUI {
         button = new JButton("submit");
 
         changeColour();
+    }
+
+
+    //EFFECTS: takes a list of courses and returns a string of their name
+    private String[] getName(List<Course> courses) {
+        String[] names = new String[courses.size()];
+        int i = 0;
+        for (Course c : courses) {
+            names[i] = c.getCourseName();
+            i++;
+        }
+        return names;
     }
 
     //MODIFIES: button and JLabels
@@ -97,7 +112,7 @@ public class AddHomeWorkUI {
     //          calls add homework action if button or pressed enter
     private void addToFrame() {
         panel.add(courseLabel);
-        panel.add(courseField);
+        panel.add(coursebox);
         panel.add(nameLabel);
         panel.add(nameField);
         panel.add(dateLabel);
@@ -130,7 +145,7 @@ public class AddHomeWorkUI {
     //          also show the message if the name is ""
     private void addHomeWorkButtonAction() {
         try {
-            String course = courseField.getText();
+            String course = coursebox.getSelectedItem().toString();
             String name = nameField.getText();
             if (name.length() <= 0) {
                 JOptionPane.showMessageDialog(frame,"Put a proper homework name, stop trying to find bugs :(");
