@@ -38,19 +38,19 @@ really helpful for almost everyone.
 - As a user, I want to get the option to reload the data from the course management app.
 
 #Instructions for Grader
-- You have to type your name and press enter key load the program, based on your name it will load the data 
+- You have to type your name and press enter key to load the program, based on your name it will load the data 
 - You can add course by typing the course name and clicking "add" or press tab to select the button and pressing enter
-- You can then add homework by clicking "add homework" button, then fill in the information by choosing the correct course from the combo box, 
+- You can then add homework by clicking "add homework" button, choosing the course from the drop down menu by selecting the desired course, then fill in the information by choosing the correct course from the combo box, 
   typing in the correct fields as per the labels. Then click "submit" button or press tab to select the button and pressing enter
-- You can add courses to students and homeworks to students by repeating the above two instructions.
+- You can add courses to students and homeworks to courses by repeating the above two instructions.
 - You can look at the schedule with the "display schedule" message, it displays the date then corresponding homeworks,
-course and then status of the homework (visually too). It also shows error if it cannot find the course
- - You can edit the homework by clicking "edit homework" button, choosing the correct course and typing the correct information in the field as per the instruction in the labels. 
+course and then status of the homework (visually with a green check mark or red-cross too). [You will need homeworks to see a schedule]
+ - You can edit the homework by clicking "edit homework" button, choosing the correct course from combo-box by selecting it with a mouse and typing the correct information in the field as per the instruction in the labels. 
    Then press "submit" button or press tab to select the button and press enter
- - You can quit the program by clicking "quit" button and then choosing whether you want to save the changes or not by clicking the appropriate button
- - **Error messages will pop for:** no duplicated course or homework name, more than 20 hours of homework in one day,
+ - You can quit the program by clicking "quit" button and then choosing whether you want to save the changes or not by clicking the appropriate button [save or not save button]
+ - **Error messages will pop for:** duplicated course or homework name, more than 20 hours of homework in one day,
  empty names for student name or course or homework
  - **The program will close without saving:** if the main page or the ask name page is closed,
  the rest will only close the current window
-- **Preloaded data:** you can use "pushya" name to use pre loaded data if you do not want to add multilpe courses and homework
+- **Preloaded data:** you can use "pushya" name to use pre-loaded data if you do not want to add multiple courses and homework
 
