@@ -54,3 +54,12 @@ course and then status of the homework (visually with a green check mark or red-
  the rest will only close the current window
 - **Preloaded data:** you can use "pushya" name to use pre-loaded data if you do not want to add multiple courses and homework
 
+#Phase4 : Task3
+- Increase cohesion by creating Schedule as its own class which would handle schedule making process and could also be saved as JSon along with homeworks, courses and students
+- Implement observer pattern such that changes made can automatically be logged into EventLog class. This includes having a Java Observable class which would be inherited by Student and Courses.
+There would be also an observer interface which would be implemented by the EventLog class.
+- Implement composite pattern as my current data structure forms a tree diagram with student -> courses -> homework. I would implement a 
+  composite pattern to parse through the students for tasks such as displaying the schedule or making the schedule. Course and Homework would extend
+  a workload abstract class, then Courses would be the composite, workload class would be the component, and the homeworks would be the leaf. This would
+  Also allow me to add nested courses which could be acting as sessions within the course 
+  [i know that counts as extra feature but i would use the composite pattern for parsing through my current tree structure too]

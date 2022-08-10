@@ -19,7 +19,6 @@ public class EditHomeWorkUI extends FramesUI {
     private Student student;
 
     //JTextFields
-    private JTextField courseField;
     private JTextField nameField;
     private JTextField gradeField;
     private JTextField doneField;
@@ -42,7 +41,6 @@ public class EditHomeWorkUI extends FramesUI {
         super("Edit homework", 480, 300, new GridLayout(5,2,5,5));
         this.student = student;
 
-        courseField = new JTextField();
         nameField = new JTextField();
         gradeField = new JTextField();
         doneField = new JTextField();
