@@ -54,7 +54,28 @@ course and then status of the homework (visually with a green check mark or red-
  the rest will only close the current window
 - **Preloaded data:** you can use "pushya" name to use pre-loaded data if you do not want to add multiple courses and homework
 
-#Phase4 : Task3
+#Phase 4 : Task 2
+- The EventLog will record Courses being added to students, homeworks being added to course and edits being made to the homeworks.
+- It should show the date and the event in separate lines and should them when you save or not save quit the program. Example as following:
+
+Wed Aug 10 12:03:37 PDT 2022
+  
+wubba lubba dub dub added to student list of couses
+  
+Wed Aug 10 12:03:59 PDT 2022
+  
+rick and morty added to wubba lubba dub dub
+  
+Wed Aug 10 12:04:15 PDT 2022
+  
+rick and morty of course wubba lubba dub dub grade changed to 90.0
+  
+Wed Aug 10 12:04:15 PDT 2022
+  
+rick and morty of course wubba lubba dub dub status changed to done
+
+
+#Phase 4 : Task 3 
 - Increase cohesion by creating Schedule as its own class which would handle schedule making process and could also be saved as JSon along with homeworks, courses and students
 - Implement observer pattern such that changes made can automatically be logged into EventLog class. This includes having a Java Observable class which would be inherited by Student and Courses.
 There would be also an observer interface which would be implemented by the EventLog class.
