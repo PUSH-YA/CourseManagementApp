@@ -9,28 +9,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-public class AskNameUI {
-    private static final int WIDTH = 350;
-    private static final int HEIGHT = 100;
-    private JFrame frame;
-    private JPanel panel;
+public class AskNameUI extends FramesUI {
     private Student student;
     private JTextField field;
 
-    //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for asking name frame
-    //         set the jframe colour, border and size jpanel layout and add the
+    //EFFECTS: instantiates JTextField
     //          calls add name method
     public AskNameUI() {
-        frame = new JFrame("Student name");
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setLocationRelativeTo(null);
-        frame.getRootPane().setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-
-        panel = new JPanel();
-        panel.setBackground(Color.darkGray);
-        panel.setLayout(new FlowLayout());
-
+        super("Student name", 350, 100, new FlowLayout());
         field = new JTextField();
         askForName();
     }

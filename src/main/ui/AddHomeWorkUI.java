@@ -16,18 +16,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
-public class AddHomeWorkUI {
-    private static final int WIDTH = 480;
-    private static final int HEIGHT = 300;
-    private JFrame frame;
-    private JPanel panel;
+public class AddHomeWorkUI extends FramesUI {
     private Student student;
 
     //JTextFields
-    private JTextField courseField;
     private JComboBox  coursebox;
     private JTextField nameField;
     private JTextField dateField;
@@ -46,21 +40,11 @@ public class AddHomeWorkUI {
 
     //EFFECTS: instantiates the student from the constructor
     //         creates a new JFrame,JPanel, JButton and JTextField for adding homework ui
-    //         set the jframe colour, border and size jpanel layout and add the JLabels accordingly
     //          change colour
     public AddHomeWorkUI(Student student) {
+        super("New homework adding", 480, 300, new GridLayout(6,2,5,5));
         this.student = student;
-        frame = new JFrame("New HomeWork adding");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setLocationRelativeTo(null);
-        frame.getRootPane().setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
 
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(6,2,5,5));
-        panel.setBackground(Color.darkGray);
-
-        courseField = new JTextField();
         coursebox = new JComboBox(getName(student.getListOfCourses()));
         nameField = new JTextField();
         dateField = new JTextField();

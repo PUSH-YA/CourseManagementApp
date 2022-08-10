@@ -48,6 +48,7 @@ public class Student implements Writable {
         }
         if (checkCourseList(course)) {
             listOfCourses.add(course);
+            EventLog.getInstance().logEvent(new Event(course.getCourseName() + " added to student list of couses"));
         } else {
             throw new AlreadyExists();
         }

@@ -13,25 +13,20 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 
-public class CourseManagementUI {
+public class CourseManagementUI extends FramesUI {
 
-    private static final int WIDTH = 720;
-    private static final int HEIGHT = 580;
-    private JFrame frame;
-    private JPanel panel;
     private JPanel buttonPanel;
     private Student student;
 
     //EFFECTS: instantiates a student and calls create and show gui
     public CourseManagementUI(Student student) {
+        super(student.getName() + "'s course management system", 720, 580, (new GridLayout(3,1,10,10)));
         this.student = student;
         createAndShowGUI();
     }
 
 //    MODIFIES: panel and frame
-//    EFFECTS: creates the jframe for this and sets up frame with correct height and border
-//              creates the jpanel with grid layout and dark grey
-//              creates the buttons adds the buttons to the panel and panel to the frame
+//    EFFECTS:   creates the buttons adds the buttons to the panel and panel to the frame
 //               shows the methods for each function:
 //                                          showing labels
 //                                          adding new course
@@ -40,16 +35,6 @@ public class CourseManagementUI {
 //                                          display the schedule
 //                                          quit the application
     public void createAndShowGUI() {
-        frame = new JFrame(student.getName() + "'s course management system");
-        frame.setLayout(new BorderLayout());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setLocationRelativeTo(null);
-        frame.getRootPane().setBorder(BorderFactory.createLineBorder(Color.darkGray, 10));
-
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(3,1,10,10));
-        panel.setBackground(Color.darkGray);
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(3,1));

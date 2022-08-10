@@ -46,6 +46,7 @@ public class Course implements Writable {
             throw new NullHomeWorkException();
         } else if (checkHwkList(hwk)) {
             homeworks.add(hwk);
+            EventLog.getInstance().logEvent(new Event(hwk.getName() + " added to " + courseName));
         } else {
             throw new AlreadyExists();
         }

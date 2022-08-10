@@ -14,11 +14,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-public class EditHomeWorkUI {
-    private static final int WIDTH = 480;
-    private static final int HEIGHT = 300;
-    private JFrame frame;
-    private JPanel panel;
+public class EditHomeWorkUI extends FramesUI {
+
     private Student student;
 
     //JTextFields
@@ -39,22 +36,11 @@ public class EditHomeWorkUI {
     //JButton
     private JButton button;
 
-    //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for editing homework frame
-    //          sets up the frame with the correct height and border
-    //          sets up the panel with the grid layout and dark grey background
-    //          instantiate JTextFields, JLabels and Jbutton
+    //EFFECTS:  instantiate JTextFields, JLabels and Jbutton
     //          calls to change colour and then add to frame
     public EditHomeWorkUI(Student student) {
+        super("Edit homework", 480, 300, new GridLayout(5,2,5,5));
         this.student = student;
-        frame = new JFrame("Edit HomeWork");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setLocationRelativeTo(null);
-        frame.getRootPane().setBorder(BorderFactory.createLineBorder(Color.darkGray, 3));
-
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(5,2,5,5));
-        panel.setBackground(Color.darkGray);
 
         courseField = new JTextField();
         nameField = new JTextField();

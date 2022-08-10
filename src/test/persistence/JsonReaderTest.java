@@ -2,8 +2,6 @@ package persistence;
 
 import model.Course;
 import model.Student;
-import model.exceptions.NullCourseException;
-import model.exceptions.NullHomeWorkException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,8 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest extends JsonTest{
     @Test
@@ -71,7 +68,7 @@ public class JsonReaderTest extends JsonTest{
             assertEquals(courseList.get(0).getHomeworks().get(0).getGrade(), 10);
             assertEquals(courseList.get(0).getHomeworks().get(0).getDuration(), 3);
             assertEquals(courseList.get(0).getHomeworks().get(0).getWeighing(), 30);
-            assertEquals(courseList.get(0).getHomeworks().get(0).getStatus(), "incomplete");
+            assertFalse(courseList.get(0).getHomeworks().get(0).getStatus());
             assertEquals(courseList.get(0).getHomeworks().get(0).getDate(), localDate1);
 
             assertEquals(courseList.get(1).getHomeworks().size(), 1);
@@ -80,7 +77,7 @@ public class JsonReaderTest extends JsonTest{
             assertEquals(courseList.get(1).getHomeworks().get(0).getGrade(), 0);
             assertEquals(courseList.get(1).getHomeworks().get(0).getDuration(), 3);
             assertEquals(courseList.get(1).getHomeworks().get(0).getWeighing(), 30);
-            assertEquals(courseList.get(1).getHomeworks().get(0).getStatus(), "done");
+            assertTrue(courseList.get(1).getHomeworks().get(0).getStatus());
             assertEquals(courseList.get(1).getHomeworks().get(0).getDate(), localDate1);
         } catch(IOException e) {
             fail();

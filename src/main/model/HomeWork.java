@@ -53,8 +53,12 @@ public class HomeWork implements Writable {
         return grade;
     }
 
+    //MODIFIES: grade
+    //EFFECTS: changes the grade to the given grade
+    //          adds the event of changing grade to set grade
     public void setGrade(double grade) {
         this.grade = grade;
+        EventLog.getInstance().logEvent(new Event(name + " of course " + course + " grade changed to " + grade));
     }
 
     //EFFECTS: returns the status of the homework
@@ -64,7 +68,26 @@ public class HomeWork implements Writable {
 
     //MODIFIES: done
     //EFFECTS: change the status of the code from the previous state
+    //          if done, adds appropriate [changed status to done] to the event log message
+    //          otherwise, adds appropriate [changed status to incomplete] to the event log message
     public void changeStatus(boolean status) {
+        done = status;
+        if (status) {
+            EventLog.getInstance().logEvent(new Event(name + " of course " + course + " status changed to done"));
+        } else {
+            EventLog.getInstance().logEvent(new Event(name + " of course " + course + " status changed to incomplete"));
+        }
+    }
+
+    //MODIFIES: grade
+    //EFFECTS: sets the grade to the given grade
+    public void setGradeJson(double grade) {
+        this.grade = grade;
+    }
+
+    //MODIFIES: done
+    //EFFECTS: change the status of the code from the previous state
+    public void changeStatusJson(boolean status) {
         done = status;
     }
 

@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Student;
 import persistence.JsonWriter;
 
@@ -9,30 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class Quit {
-    private static final int WIDTH = 300;
-    private static final int HEIGHT = 150;
-    private JFrame frame;
-    private JPanel panel;
+public class Quit extends FramesUI {
     private JButton save;
     private JButton noSave;
     private Student student;
 
-    //EFFECTS: creates a new JFrame,JPanel, JButton and JTextField for editing homework frame
-    //          sets up the frame with the correct height and border
-    //          sets up the panel with the grid layout and dark grey background
+    //EFFECTS:  instantiates student
     //          calls show buttons
     public Quit(Student student) {
+        super("Quit", 300, 150, new GridLayout(2,1,10,10));
         this.student = student;
-        frame = new JFrame("Quit");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setLocationRelativeTo(null);
-        frame.getRootPane().setBorder(BorderFactory.createLineBorder(Color.darkGray, 10));
-
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(2,1,10,10));
-        panel.setBackground(Color.darkGray);
         showButtons();
     }
 
@@ -72,6 +60,7 @@ public class Quit {
                 } catch (IOException l) {
                     System.out.println("could not file your file...contact the developer");
                 } finally {
+                    printLog(EventLog.getInstance());
                     System.exit(0);
                 }
             }
@@ -81,9 +70,16 @@ public class Quit {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                printLog(EventLog.getInstance());
                 System.exit(0);
             }
         });
 
+    }
+
+    private void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString());
+        }
     }
 }
