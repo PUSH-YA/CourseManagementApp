@@ -75,7 +75,7 @@ Wed Aug 10 12:04:15 PDT 2022
 rick and morty of course wubba lubba dub dub status changed to done
 
 
-#Phase 4 : Task 3 
+#Phase 4 : Task 3
 - Increase cohesion by creating Schedule as its own class which would handle schedule making process and could also be saved as JSon along with homeworks, courses and students
 - Implement observer pattern such that changes made can automatically be logged into EventLog class. This includes having a Java Observable class which would be inherited by Student and Courses.
 There would be also an observer interface which would be implemented by the EventLog class.

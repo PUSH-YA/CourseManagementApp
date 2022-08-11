@@ -47,6 +47,18 @@
                 "weighing": 90
             }],
             "name": "trial1"
+        },
+        {
+            "homeworks": [{
+                "start date": "25/03/2003",
+                "duration": 10,
+                "grade": 90,
+                "name": "asd",
+                "done?": true,
+                "course": "something",
+                "weighing": 23
+            }],
+            "name": "something"
         }
     ]
 }
