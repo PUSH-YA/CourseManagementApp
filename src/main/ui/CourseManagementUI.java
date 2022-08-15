@@ -22,6 +22,7 @@ public class CourseManagementUI extends FramesUI {
     public CourseManagementUI(Student student) {
         super(student.getName() + "'s course management system", 720, 580, (new GridLayout(3,1,10,10)));
         this.student = student;
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         createAndShowGUI();
     }
 

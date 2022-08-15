@@ -30,6 +30,8 @@ public class AskNameUI extends FramesUI {
         JLabel text = new JLabel("Your name: ", new ImageIcon("./src/main/ui/images/askName.png"), JLabel.RIGHT);
         text.setForeground(Color.white);
 
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         field.setPreferredSize(new Dimension(100, 30));
         field.addKeyListener(new KeyAdapter() {
             @Override
