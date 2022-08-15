@@ -20,6 +20,7 @@ public class Quit extends FramesUI {
     //          calls show buttons
     public Quit(Student student) {
         super("Quit", 300, 150, new GridLayout(2,1,10,10));
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.student = student;
         showButtons();
     }

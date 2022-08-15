@@ -1,0 +1,35 @@
+{
+    "name": "elliott",
+    "courseList": [{
+        "homeworks": [
+            {
+                "start date": "24/05/2022",
+                "duration": 3,
+                "grade": 99,
+                "name": "something",
+                "done?": true,
+                "course": "cpsc",
+                "weighing": 23
+            },
+            {
+                "start date": "24/05/2022",
+                "duration": 2,
+                "grade": 0,
+                "name": "trial",
+                "done?": false,
+                "course": "cpsc",
+                "weighing": 23
+            },
+            {
+                "start date": "24/05/2022",
+                "duration": 16,
+                "grade": 0,
+                "name": "trial 2",
+                "done?": false,
+                "course": "cpsc",
+                "weighing": 50
+            }
+        ],
+        "name": "cpsc"
+    }]
+}

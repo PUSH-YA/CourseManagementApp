@@ -43,6 +43,7 @@ public class AddHomeWorkUI extends FramesUI {
     //          change colour
     public AddHomeWorkUI(Student student) {
         super("New homework adding", 480, 300, new GridLayout(6,2,5,5));
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.student = student;
 
         coursebox = new JComboBox(getName(student.getListOfCourses()));
@@ -189,16 +190,14 @@ public class AddHomeWorkUI extends FramesUI {
         }
         HomeWork homeWork  = new HomeWork(name, localDate, courseChosen.getCourseName(), duration, weighing);
         try {
-            courseChosen.addHomeWork(homeWork);
             student.addHomeWorkToSchedule(homeWork);
+            courseChosen.addHomeWork(homeWork);
+            System.out.println(student.getListOfCourses().size());
+            System.out.println(student.getListOfCourses().get(0).getHomeworks().size());
             JOptionPane.showMessageDialog(frame, name + " added to " + courseChosen.getCourseName());
             frame.dispose();
         } catch (TooLongDuration e) {
             throw new TooLongDuration();
-        } catch (AlreadyExists e) {
-            throw new AlreadyExists();
-        } catch (NullHomeWorkException e) {
-            throw new NullHomeWorkException();
         }
     }
 

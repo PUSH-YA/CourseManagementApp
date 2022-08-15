@@ -40,6 +40,7 @@ public class EditHomeWorkUI extends FramesUI {
     public EditHomeWorkUI(Student student) {
         super("Edit homework", 480, 300, new GridLayout(5,2,5,5));
         this.student = student;
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         nameField = new JTextField();
         gradeField = new JTextField();
