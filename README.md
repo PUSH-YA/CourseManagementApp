@@ -24,6 +24,11 @@ can schedule your courses' work and keep up with progress you are making in the 
 the tasks done. Also, I think that having a user friendly interface that automatically schedules tasks for you can be
 really helpful for almost everyone.
 
+## Project video
+[Link to the full video with sound](https://drive.google.com/file/d/1e4xYpLh9wwvEELGJU8oBmCdt66B8IyJS/view?usp=share_link)
+
+![gif intro](https://github.com/PUSH-YA/CourseManagementApp/assets/91928008/28b4808c-a3ad-4d53-ab50-6c86cc3f8a3e)
+
 # User story for my application:
 - As a user, I want to add add my courses [unique] to the system
 - As a user, I want to keep the homeworks of specific courses in the system
